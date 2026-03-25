@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:ecrgroup.cl)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://ecrgroup.cl/favicon.ico\")",
+      "Bash(curl -s \"https://ecrgroup.cl\")",
+      "Bash(curl -sL \"https://i0.wp.com/ecrgroup.cl/wp-content/uploads/2023/03/favicon.png?fit=32%2C32&ssl=1\" -o \"c:/Users/tomas/Desarrollos/firma-ecr/favicon.png\")"
+    ]
+  }
+}
