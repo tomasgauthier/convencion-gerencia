@@ -1,0 +1,3207 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://i0.wp.com/ecrgroup.cl/wp-content/uploads/2023/03/favicon.png?fit=32%2C32&ssl=1"
+    sizes="32x32" />
+  <title>Convención de Gerentes — ECR GROUP®</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --ecr-blue: #1a6b93;
+      --ecr-dark: #0c3044;
+      --ecr-orange: #e8772b;
+      --ecr-gray: #7a8a96;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #000;
+    }
+
+    /* ── Slide container ── */
+    .slides-wrapper {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+      overflow: hidden;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* ── TEMPLATE: Cover ── */
+    .slide--cover {
+      background-image: url('CG_P-2.png');
+      background-color: #e1f0fc;
+      background-size: cover;
+    }
+
+    /* ── TEMPLATE: Light ── */
+    .slide--light {
+      background-image: url('CG-1.png');
+      background-color: #f3fcff;
+    }
+
+    .slide--light .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 100px 80px 60px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ── TEMPLATE: Dark ── */
+    .slide--dark {
+      background-image: url('CG-2.png');
+      background-color: #193847;
+    }
+
+    .slide--dark .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 100px 80px 60px;
+      position: relative;
+      z-index: 2;
+      color: #fff;
+    }
+
+    /* ── TEMPLATE: Closing ── */
+    .slide--closing {
+      background-image: url('CG_CP-2.png');
+      background-color: #e1f0fc;
+    }
+
+    /* ── Content typography ── */
+    .slide-title {
+      font-size: clamp(28px, 3.5vw, 48px);
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--ecr-dark);
+    }
+
+    .slide--dark .slide-title {
+      color: #fff;
+    }
+
+    .slide-text {
+      font-size: clamp(16px, 1.8vw, 22px);
+      line-height: 1.6;
+      color: var(--ecr-gray);
+      max-width: 800px;
+    }
+
+    .slide--dark .slide-text {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .slide-subtitle {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--ecr-orange);
+      margin-bottom: 12px;
+    }
+
+    /* ── Placeholder ── */
+    .placeholder {
+      border: 2px dashed rgba(26, 107, 147, 0.2);
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+      color: var(--ecr-gray);
+      font-size: 18px;
+      font-style: italic;
+    }
+
+    .slide--dark .placeholder {
+      border-color: rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* ══════════════════════════════════════════
+       TERMINAL
+       ══════════════════════════════════════════ */
+    .terminal {
+      background: #1a1b26;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      width: 85%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .terminal-bar {
+      background: #2a2b3d;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .terminal-dot.red {
+      background: #ff5f56;
+    }
+
+    .terminal-dot.yellow {
+      background: #ffbd2e;
+    }
+
+    .terminal-dot.green {
+      background: #27c93f;
+    }
+
+    .terminal-bar-title {
+      flex: 1;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-right: 52px;
+    }
+
+    .terminal-body {
+      padding: 20px 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      line-height: 1.8;
+      color: #a9b1d6;
+      min-height: 180px;
+    }
+
+    .terminal-body .prompt {
+      color: #7aa2f7;
+    }
+
+    .terminal-body .prompt-user {
+      color: #9ece6a;
+    }
+
+    .terminal-body .prompt-path {
+      color: #e0af68;
+    }
+
+    .terminal-body .cmd {
+      color: #c0caf5;
+    }
+
+    .terminal-body .output {
+      color: #565f89;
+    }
+
+    .terminal-body .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 16px;
+      background: #c0caf5;
+      animation: blink 1s step-end infinite;
+      vertical-align: text-bottom;
+      margin-left: 2px;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* ══════════════════════════════════════════
+       TIMER (inline en slides 2 y 5)
+       ══════════════════════════════════════════ */
+    .timer-inline {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 24px;
+      align-self: center;
+    }
+
+    .timer-inline .timer-icon {
+      width: 28px;
+      height: 28px;
+      color: var(--ecr-orange);
+    }
+
+    .timer-inline .timer-display {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--ecr-orange);
+      letter-spacing: 2px;
+    }
+
+    .timer-inline .timer-label {
+      font-size: 13px;
+      color: var(--ecr-gray);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .slide--dark .timer-inline .timer-label {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* ══════════════════════════════════════════
+       FLOATING MINI-TIMER (slides 3 y 4)
+       ══════════════════════════════════════════ */
+    .floating-timer {
+      position: fixed;
+      top: 20%;
+      right: 24px;
+      cursor: grab;
+      user-select: none;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(26, 27, 38, 0.85);
+      backdrop-filter: blur(12px);
+      padding: 12px 22px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .floating-timer.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .floating-timer .ft-icon {
+      width: 23px;
+      height: 23px;
+      color: var(--ecr-orange);
+    }
+
+    .floating-timer .ft-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 23px;
+      font-weight: 700;
+      color: var(--ecr-orange);
+      letter-spacing: 1px;
+      min-width: 60px;
+    }
+
+    .floating-timer .ft-label {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .floating-timer.warning .ft-time {
+      color: #ff5f56;
+      animation: pulse-red 1s ease-in-out infinite;
+    }
+
+    @keyframes pulse-red {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 3 — Contexto MarTech
+       ══════════════════════════════════════════ */
+    .martech-layout {
+      display: flex;
+      gap: 60px;
+      align-items: flex-start;
+    }
+
+    .martech-left {
+      flex: 1.2;
+    }
+
+    .martech-right {
+      flex: 0.8;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .martech-quote {
+      font-size: clamp(22px, 2.4vw, 31px);
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.85);
+      font-style: italic;
+      border-left: 3px solid var(--ecr-orange);
+      padding-left: 24px;
+      margin-top: 16px;
+    }
+
+    .martech-quote .highlight {
+      color: var(--ecr-orange);
+      font-weight: 600;
+      font-style: normal;
+    }
+
+    .martech-stat-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .martech-stat-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--ecr-orange);
+      line-height: 1;
+    }
+
+    .martech-stat-label {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.4;
+    }
+
+    .martech-terminal-ref {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(26, 27, 38, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #7aa2f7;
+      margin-top: 20px;
+    }
+
+    .martech-terminal-ref .prompt-char {
+      color: #9ece6a;
+    }
+
+    .martech-year-compare {
+      display: flex;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .year-block {
+      flex: 1;
+      padding: 16px 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .year-block--past {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .year-block--now {
+      background: rgba(232, 119, 43, 0.1);
+      border: 1px solid rgba(232, 119, 43, 0.25);
+    }
+
+    .year-block .year-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.35);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .year-block--now .year-label {
+      color: var(--ecr-orange);
+    }
+
+    .year-block .year-tools {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.6;
+    }
+
+    .year-block--now .year-tools {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Timer done state (slide 5) */
+    .timer-done .timer-display {
+      color: #27c93f !important;
+    }
+
+    /* ── Navigation ── */
+    .nav-controls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .slides-wrapper:hover .nav-controls {
+      opacity: 1;
+    }
+
+    .nav-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(12, 48, 68, 0.7);
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+      transition: background 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: rgba(12, 48, 68, 0.9);
+    }
+
+    .slide-counter {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      background: rgba(12, 48, 68, 0.5);
+      padding: 4px 16px;
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .slides-wrapper:hover .slide-counter {
+      opacity: 1;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 4 — Timeline
+       ══════════════════════════════════════════ */
+    .timeline {
+      display: flex;
+      gap: 0;
+      margin-top: 16px;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 38px;
+      left: 5%;
+      right: 5%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--ecr-gray), var(--ecr-orange), var(--ecr-blue));
+      border-radius: 2px;
+    }
+
+    .timeline-phase {
+      flex: 1;
+      padding: 0 16px;
+      text-align: center;
+    }
+
+    .timeline-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      margin: 30px auto 16px;
+      position: relative;
+      z-index: 1;
+      border: 3px solid;
+    }
+
+    /* Phase 1: past — faded */
+    .timeline-phase.phase-past {
+      opacity: 0.45;
+    }
+
+    .timeline-phase.phase-past .timeline-dot {
+      background: var(--ecr-gray);
+      border-color: var(--ecr-gray);
+    }
+
+    .timeline-phase.phase-past .timeline-period {
+      color: var(--ecr-gray);
+    }
+
+    .timeline-phase.phase-past .timeline-phase-title {
+      color: var(--ecr-gray);
+    }
+
+    /* Phase 2: transition */
+    .timeline-phase.phase-transition {
+      opacity: 0.7;
+    }
+
+    .timeline-phase.phase-transition .timeline-dot {
+      background: var(--ecr-orange);
+      border-color: var(--ecr-orange);
+    }
+
+    .timeline-phase.phase-transition .timeline-period {
+      color: var(--ecr-orange);
+    }
+
+    /* Phase 3: future — hero, full prominence */
+    .timeline-phase.phase-future {
+      flex: 1.3;
+    }
+
+    .timeline-phase.phase-future .timeline-dot {
+      width: 22px;
+      height: 22px;
+      background: var(--ecr-blue);
+      border-color: var(--ecr-blue);
+      box-shadow: 0 0 16px rgba(26, 107, 147, 0.5), 0 0 32px rgba(26, 107, 147, 0.2);
+      margin-top: 27px;
+    }
+
+    .timeline-phase.phase-future .timeline-period {
+      color: var(--ecr-blue);
+      font-size: 15px;
+    }
+
+    .timeline-phase.phase-future .timeline-phase-title {
+      color: var(--ecr-blue);
+      font-size: 24px;
+    }
+
+    .timeline-phase.phase-future .timeline-items {
+      background: rgba(26, 107, 147, 0.1);
+      border: 2px solid rgba(26, 107, 147, 0.2);
+      color: var(--ecr-dark);
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .timeline-phase.phase-future .timeline-items li::before {
+      color: var(--ecr-blue);
+      content: '$';
+    }
+
+    .timeline-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .timeline-phase-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ecr-dark);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .timeline-items {
+      list-style: none;
+      text-align: left;
+      font-size: 17px;
+      color: var(--ecr-gray);
+      line-height: 1.7;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 8px;
+      padding: 14px 18px;
+    }
+
+    .timeline-items li::before {
+      content: '>';
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--ecr-orange);
+      margin-right: 8px;
+      font-size: 14px;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 4 — Outsourcing se transforma
+       ══════════════════════════════════════════ */
+    .evo-layout {
+      display: flex;
+      gap: 20px;
+      margin-top: 12px;
+    }
+
+    .evo-col {
+      flex: 1;
+      border-radius: 10px;
+      padding: 20px 24px;
+    }
+
+    .evo-col--past {
+      background: rgba(255, 255, 255, 0.4);
+      opacity: 0.5;
+    }
+
+    .evo-col--now {
+      background: rgba(232, 119, 43, 0.08);
+      border: 2px solid rgba(232, 119, 43, 0.2);
+    }
+
+    .evo-col--future {
+      background: rgba(26, 107, 147, 0.08);
+      border: 2px solid rgba(26, 107, 147, 0.2);
+      flex: 1.2;
+    }
+
+    .evo-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .evo-col--past .evo-period {
+      color: var(--ecr-gray);
+    }
+
+    .evo-col--now .evo-period {
+      color: var(--ecr-orange);
+    }
+
+    .evo-col--future .evo-period {
+      color: var(--ecr-blue);
+    }
+
+    .evo-col-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ecr-dark);
+      margin-bottom: 12px;
+    }
+
+    .evo-col--future .evo-col-title {
+      color: var(--ecr-blue);
+    }
+
+    .evo-list {
+      list-style: none;
+      font-size: 15px;
+      color: var(--ecr-gray);
+      line-height: 1.7;
+    }
+
+    .evo-col--future .evo-list {
+      color: var(--ecr-dark);
+      font-weight: 500;
+    }
+
+    .evo-list li::before {
+      content: '>';
+      font-family: 'JetBrains Mono', monospace;
+      margin-right: 8px;
+      font-size: 12px;
+    }
+
+    .evo-col--past .evo-list li::before {
+      color: var(--ecr-gray);
+    }
+
+    .evo-col--now .evo-list li::before {
+      color: var(--ecr-orange);
+    }
+
+    .evo-col--future .evo-list li::before {
+      color: var(--ecr-blue);
+    }
+
+    .evo-quote {
+      margin-top: 20px;
+      font-size: 17px;
+      font-style: italic;
+      color: var(--ecr-dark);
+      border-left: 3px solid var(--ecr-orange);
+      padding-left: 20px;
+      line-height: 1.5;
+    }
+
+    .evo-quote strong {
+      color: var(--ecr-orange);
+      font-style: normal;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 4 — Arrow Timeline + Cards
+       ══════════════════════════════════════════ */
+    .arrow-timeline {
+      position: relative;
+      height: 40px;
+      margin: 0 40px 20px;
+    }
+
+    .arrow-line {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 20px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--ecr-gray), var(--ecr-dark));
+      transform: translateY(-50%);
+    }
+
+    .arrow-head {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 18px solid var(--ecr-dark);
+    }
+
+    .arrow-dot {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+
+    .arrow-dot-ping {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--ecr-blue);
+      box-shadow: 0 0 14px rgba(26, 107, 147, 0.6);
+      animation: marker-pulse 2s ease-in-out infinite;
+    }
+
+    .arrow-dot-label {
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ecr-blue);
+      white-space: nowrap;
+      background: rgba(26, 107, 147, 0.1);
+      padding: 3px 12px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+    }
+
+    .cards-row {
+      display: flex;
+      gap: 0;
+      align-items: stretch;
+      position: relative;
+    }
+
+    /* Linea horizontal que atraviesa las 3 cards */
+    .cards-row::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 20px;
+      top: 50%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--ecr-gray), var(--ecr-orange), var(--ecr-blue));
+      z-index: 1;
+      border-radius: 2px;
+    }
+
+    /* Punta de flecha */
+    .cards-row::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 18px solid var(--ecr-blue);
+      z-index: 1;
+    }
+
+    .era-card {
+      flex: 1;
+      border-radius: 16px;
+      padding: 18px 24px;
+      margin: 0 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .era-card--past {
+      background: rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      opacity: 0.5;
+    }
+
+    .era-card--transition {
+      background: rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      opacity: 0.75;
+    }
+
+    .era-card--future {
+      background: rgba(26, 107, 147, 0.08);
+      border: 2px solid rgba(26, 107, 147, 0.3);
+      flex: 1.15;
+      box-shadow: 0 0 20px rgba(26, 107, 147, 0.15), 0 0 40px rgba(26, 107, 147, 0.08), 0 8px 30px rgba(26, 107, 147, 0.1);
+      animation: card-glow 3s ease-in-out infinite;
+    }
+
+    @keyframes card-glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(26, 107, 147, 0.15), 0 0 40px rgba(26, 107, 147, 0.08), 0 8px 30px rgba(26, 107, 147, 0.1);
+      }
+
+      50% {
+        box-shadow: 0 0 30px rgba(26, 107, 147, 0.25), 0 0 60px rgba(26, 107, 147, 0.12), 0 8px 30px rgba(26, 107, 147, 0.15);
+      }
+    }
+
+    .era-card-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .era-card--past .era-card-period {
+      color: var(--ecr-gray);
+    }
+
+    .era-card--transition .era-card-period {
+      color: var(--ecr-orange);
+    }
+
+    .era-card--future .era-card-period {
+      color: var(--ecr-blue);
+    }
+
+    .era-card-title {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .era-card--past .era-card-title {
+      color: var(--ecr-gray);
+    }
+
+    .era-card--transition .era-card-title {
+      color: var(--ecr-dark);
+    }
+
+    .era-card--future .era-card-title {
+      color: var(--ecr-blue);
+    }
+
+    .era-card-list {
+      list-style: none;
+      font-size: 20px;
+      color: var(--ecr-dark);
+      line-height: 1.4;
+    }
+
+    .era-card--past .era-card-list {
+      color: var(--ecr-gray);
+    }
+
+    .era-card-list li::before {
+      content: '>';
+      font-family: 'JetBrains Mono', monospace;
+      margin-right: 10px;
+      font-size: 16px;
+    }
+
+    .era-card--past .era-card-list li::before {
+      color: var(--ecr-gray);
+    }
+
+    .era-card--transition .era-card-list li::before {
+      color: var(--ecr-orange);
+    }
+
+    .era-card--future .era-card-list li::before {
+      color: var(--ecr-blue);
+    }
+
+    .era-card-context {
+      font-size: 15px;
+      color: var(--ecr-gray);
+      font-style: italic;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      padding-top: 12px;
+      margin-top: 14px;
+      line-height: 1.4;
+    }
+
+    .era-card--future .era-card-context {
+      border-color: rgba(26, 107, 147, 0.15);
+      color: var(--ecr-dark);
+    }
+
+    /* Card divider (single line) */
+    .era-card-divider {
+      height: 3px;
+      margin: 16px 0;
+      border-radius: 2px;
+    }
+
+    /* "Estamos aqui" marker */
+    .timeline-marker-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      background: var(--ecr-blue);
+      padding: 4px 12px;
+      border-radius: 4px;
+    }
+
+    .timeline-marker-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--ecr-blue);
+      animation: marker-pulse 2s ease-in-out infinite;
+      box-shadow: 0 0 10px rgba(26, 107, 147, 0.7);
+      flex-shrink: 0;
+    }
+
+    @keyframes marker-pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(26, 107, 147, 0.7);
+      }
+
+      50% {
+        transform: scale(1.5);
+        box-shadow: 0 0 20px rgba(26, 107, 147, 0.9);
+      }
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 5 — Objetivos (2 columnas + tabla)
+       ══════════════════════════════════════════ */
+    .obj-layout {
+      display: flex;
+      gap: 40px;
+      margin-top: 8px;
+    }
+
+    .obj-col {
+      flex: 1;
+    }
+
+    .obj-card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+
+    .obj-card-title {
+      font-size: 29px;
+      font-weight: 700;
+      color: var(--ecr-orange);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .obj-card-list {
+      list-style: none;
+      font-size: 26px;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.7;
+    }
+
+    .obj-card-list li::before {
+      content: '~';
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--ecr-orange);
+      margin-right: 8px;
+      font-size: 11px;
+    }
+
+    .obj-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .obj-table th {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--ecr-orange);
+      font-weight: 600;
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .obj-table td {
+      padding: 8px 14px;
+      color: rgba(255, 255, 255, 0.6);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .obj-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .obj-table th:first-child,
+    .obj-table td:first-child {
+      color: #fff;
+      font-weight: 600;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDES 7-8 — Matrices / Tablas
+       ══════════════════════════════════════════ */
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 12px;
+    }
+
+    /* Light version */
+    .slide--light .matrix-table th {
+      background: rgba(26, 107, 147, 0.1);
+      color: var(--ecr-dark);
+      font-weight: 700;
+      padding: 12px 14px;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border-bottom: 2px solid rgba(26, 107, 147, 0.15);
+    }
+
+    .slide--light .matrix-table td {
+      padding: 10px 14px;
+      color: var(--ecr-gray);
+      border-bottom: 1px solid rgba(26, 107, 147, 0.08);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .slide--light .matrix-table td:first-child {
+      color: var(--ecr-dark);
+      font-weight: 700;
+      text-align: left;
+      background: rgba(26, 107, 147, 0.04);
+      border-right: 2px solid rgba(26, 107, 147, 0.1);
+    }
+
+    .slide--light .matrix-table th:first-child {
+      text-align: left;
+    }
+
+    /* Dark version */
+    .slide--dark .matrix-table th {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--ecr-orange);
+      font-weight: 700;
+      padding: 12px 14px;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .slide--dark .matrix-table td {
+      padding: 10px 14px;
+      color: rgba(255, 255, 255, 0.6);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .slide--dark .matrix-table td:first-child {
+      color: #fff;
+      font-weight: 700;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.03);
+      border-right: 2px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .slide--dark .matrix-table th:first-child {
+      text-align: left;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 5 — NPS Trajectory
+       ══════════════════════════════════════════ */
+    .nps-layout {
+      display: flex;
+      gap: 30px;
+      margin-top: 8px;
+    }
+
+    .nps-left {
+      flex: 1.4;
+    }
+
+    .nps-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .nps-chart {
+      display: flex;
+      flex-direction: column;
+      height: 230px;
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    /* Positive area (grows up) */
+    .nps-chart-pos {
+      flex: 3;
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      padding: 0 4px;
+    }
+
+    /* Zero axis line */
+    .nps-chart-zero {
+      height: 2px;
+      background: rgba(255, 255, 255, 0.25);
+      position: relative;
+    }
+
+    .nps-chart-zero::before {
+      content: '0%';
+      position: absolute;
+      left: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Negative area (grows down) */
+    .nps-chart-neg {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      padding: 0 4px;
+    }
+
+    .nps-bar {
+      flex: 1;
+      position: relative;
+      transition: height 0.5s ease;
+      min-height: 2px;
+    }
+
+    .nps-bar.pos-bar {
+      border-radius: 3px 3px 0 0;
+    }
+
+    .nps-bar.neg-bar {
+      border-radius: 0 0 3px 3px;
+    }
+
+    /* Spacer for bars not in this zone */
+    .nps-bar.spacer {
+      background: none !important;
+      min-height: 0;
+      height: 0;
+    }
+
+    .nps-bar .nps-bar-label {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.3);
+      white-space: nowrap;
+    }
+
+    .nps-chart-neg .nps-bar-label {
+      bottom: -22px;
+    }
+
+    .nps-chart-pos .nps-bar-label {
+      /* hidden in pos row, shown in neg row */
+      display: none;
+    }
+
+    .nps-bar .nps-bar-value {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 19px;
+      color: rgba(255, 255, 255, 0.5);
+      white-space: nowrap;
+    }
+
+    .nps-bar.pos-bar .nps-bar-value {
+      top: -22px;
+    }
+
+    .nps-bar.neg-bar .nps-bar-value {
+      top: 4px;
+    }
+
+    .nps-bar.negative {
+      background: #e05263;
+    }
+
+    .nps-bar.low {
+      background: #d4a04a;
+    }
+
+    .nps-bar.high {
+      background: #4aa8d4;
+    }
+
+    .nps-bar.hero {
+      background: linear-gradient(180deg, #27c93f, #1a9e30);
+      box-shadow: 0 0 16px rgba(39, 201, 63, 0.4), 0 0 32px rgba(39, 201, 63, 0.15);
+      animation: hero-bar-glow 3s ease-in-out infinite;
+    }
+
+    @keyframes hero-bar-glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 16px rgba(39, 201, 63, 0.4), 0 0 32px rgba(39, 201, 63, 0.15);
+      }
+
+      50% {
+        box-shadow: 0 0 24px rgba(39, 201, 63, 0.6), 0 0 48px rgba(39, 201, 63, 0.25);
+      }
+    }
+
+    @keyframes glow-76 {
+
+      0%,
+      100% {
+        text-shadow: 0 0 20px rgba(39, 201, 63, 0.4), 0 0 40px rgba(39, 201, 63, 0.2);
+      }
+
+      50% {
+        text-shadow: 0 0 30px rgba(39, 201, 63, 0.6), 0 0 60px rgba(39, 201, 63, 0.3);
+      }
+    }
+
+    .nps-bar.hero .nps-bar-value {
+      color: #27c93f;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .nps-hero-stat {
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .nps-hero-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 99px;
+      font-weight: 700;
+      color: var(--ecr-blue);
+      line-height: 1;
+    }
+
+    .nps-hero-label {
+      font-size: 29px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 4px;
+    }
+
+    .nps-era {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .nps-era-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--ecr-orange);
+      white-space: nowrap;
+      min-width: 70px;
+    }
+
+    .nps-era-title {
+      font-size: 27px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .nps-era-desc {
+      font-size: 26px;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.4;
+    }
+
+    .nps-benchmark {
+      display: flex;
+      gap: 20px;
+      margin-top: 8px;
+    }
+
+    .nps-bench-item {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .nps-bench-item--industry {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nps-bench-item--ecr {
+      background: rgba(39, 201, 63, 0.08);
+      border: 2px solid rgba(39, 201, 63, 0.25);
+    }
+
+    .nps-bench-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 58px;
+      font-weight: 700;
+    }
+
+    .nps-bench-item--industry .nps-bench-value {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .nps-bench-item--ecr .nps-bench-value {
+      color: #27c93f;
+    }
+
+    .nps-bench-label {
+      font-size: 22px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-top: 2px;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 6 — Paradoja del Outsourcing
+       ══════════════════════════════════════════ */
+    .paradox-layout {
+      display: flex;
+      gap: 20px;
+      margin-top: 12px;
+    }
+
+    .paradox-col {
+      flex: 1;
+      border-radius: 10px;
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .paradox-col--funcional {
+      background: rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(26, 107, 147, 0.1);
+      opacity: 0.7;
+    }
+
+    .paradox-col--emocional {
+      background: rgba(232, 119, 43, 0.06);
+      border: 2px solid rgba(232, 119, 43, 0.15);
+    }
+
+    .paradox-col--simbolica {
+      background: rgba(26, 107, 147, 0.08);
+      border: 2px solid rgba(26, 107, 147, 0.2);
+    }
+
+    .paradox-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .paradox-dim-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .paradox-col--funcional .paradox-dim-title {
+      color: var(--ecr-gray);
+    }
+
+    .paradox-col--emocional .paradox-dim-title {
+      color: var(--ecr-orange);
+    }
+
+    .paradox-col--simbolica .paradox-dim-title {
+      color: var(--ecr-blue);
+    }
+
+    .paradox-dim-sub {
+      font-size: 22px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .paradox-col--funcional .paradox-dim-sub {
+      color: var(--ecr-gray);
+    }
+
+    .paradox-col--emocional .paradox-dim-sub {
+      color: var(--ecr-orange);
+    }
+
+    .paradox-col--simbolica .paradox-dim-sub {
+      color: var(--ecr-blue);
+    }
+
+    .paradox-list {
+      list-style: none;
+      font-size: 25px;
+      color: var(--ecr-dark);
+      line-height: 1.6;
+      margin-bottom: 12px;
+      flex: 1;
+    }
+
+    .paradox-col--funcional .paradox-list {
+      color: var(--ecr-gray);
+    }
+
+    .paradox-list li::before {
+      content: '>';
+      font-family: 'JetBrains Mono', monospace;
+      margin-right: 8px;
+      font-size: 20px;
+    }
+
+    .paradox-col--funcional .paradox-list li::before {
+      color: var(--ecr-gray);
+    }
+
+    .paradox-col--emocional .paradox-list li::before {
+      color: var(--ecr-orange);
+    }
+
+    .paradox-col--simbolica .paradox-list li::before {
+      color: var(--ecr-blue);
+    }
+
+    .paradox-quote {
+      font-size: 22px;
+      font-style: italic;
+      color: var(--ecr-gray);
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      padding-top: 10px;
+      line-height: 1.5;
+    }
+
+    .paradox-col--emocional .paradox-quote {
+      border-color: rgba(232, 119, 43, 0.15);
+    }
+
+    .paradox-col--simbolica .paradox-quote {
+      border-color: rgba(26, 107, 147, 0.15);
+    }
+
+    .paradox-finding {
+      margin-top: 16px;
+      font-size: 29px;
+      font-style: italic;
+      color: var(--ecr-dark);
+      border-left: 3px solid var(--ecr-orange);
+      padding-left: 20px;
+      line-height: 1.5;
+    }
+
+    .paradox-finding strong {
+      color: var(--ecr-orange);
+      font-style: normal;
+    }
+
+    /* Large matrix variant (+30%) */
+    .matrix-table--large th {
+      font-size: 22px !important;
+      padding: 16px 18px !important;
+    }
+
+    .matrix-table--large td {
+      font-size: 27px !important;
+      padding: 14px 18px !important;
+    }
+
+    /* ══════════════════════════════════════════
+       DASHBOARD SLIDES (9-11)
+       ══════════════════════════════════════════ */
+    .dash-flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-top: 16px;
+    }
+
+    .dash-flow-node {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .dash-flow-node.active {
+      background: rgba(26, 107, 147, 0.08);
+      border: 2px solid rgba(26, 107, 147, 0.25);
+      box-shadow: 0 0 20px rgba(26, 107, 147, 0.1);
+    }
+
+    .dash-flow-node-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .dash-flow-node-title {
+      font-size: 33px;
+      font-weight: 700;
+      color: var(--ecr-dark);
+      margin-bottom: 4px;
+    }
+
+    .dash-flow-node-desc {
+      font-size: 24px;
+      color: var(--ecr-gray);
+    }
+
+    .dash-flow-node.active .dash-flow-node-title {
+      color: var(--ecr-blue);
+    }
+
+    .dash-flow-arrow {
+      font-size: 42px;
+      color: rgba(0, 0, 0, 0.2);
+      padding: 0 8px;
+      flex-shrink: 0;
+    }
+
+    /* KPI Cards */
+    .dash-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .dash-kpi {
+      background: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .dash-kpi-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .dash-kpi-value.green {
+      color: #27a844;
+    }
+
+    .dash-kpi-value.orange {
+      color: var(--ecr-orange);
+    }
+
+    .dash-kpi-value.blue {
+      color: var(--ecr-blue);
+    }
+
+    .dash-kpi-value.red {
+      color: #dc3545;
+    }
+
+    .dash-kpi-label {
+      font-size: 16px;
+      color: var(--ecr-gray);
+      margin-top: 6px;
+      line-height: 1.3;
+    }
+
+    .dash-kpi.highlight {
+      background: rgba(26, 107, 147, 0.06);
+      border: 2px solid rgba(26, 107, 147, 0.15);
+    }
+
+    /* Cosecha vs Siembra */
+    .dash-vs {
+      display: flex;
+      gap: 30px;
+      margin-top: 16px;
+    }
+
+    .dash-vs-col {
+      flex: 1;
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .dash-vs-col--cosecha {
+      background: rgba(232, 119, 43, 0.08);
+      border: 2px solid rgba(232, 119, 43, 0.15);
+    }
+
+    .dash-vs-col--siembra {
+      background: rgba(26, 107, 147, 0.08);
+      border: 2px solid rgba(26, 107, 147, 0.2);
+    }
+
+    .dash-vs-title {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .dash-vs-col--cosecha .dash-vs-title {
+      color: var(--ecr-orange);
+    }
+
+    .dash-vs-col--siembra .dash-vs-title {
+      color: var(--ecr-blue);
+    }
+
+    .dash-vs-subtitle {
+      font-size: 24px;
+      color: var(--ecr-gray);
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .dash-vs-stat {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      font-size: 30px;
+    }
+
+    .dash-vs-stat-label {
+      color: var(--ecr-dark);
+    }
+
+    .dash-vs-stat-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+    }
+
+    .dash-vs-col--cosecha .dash-vs-stat-value {
+      color: var(--ecr-orange);
+    }
+
+    .dash-vs-col--siembra .dash-vs-stat-value {
+      color: var(--ecr-blue);
+    }
+
+    .dash-insight {
+      margin-top: 20px;
+      font-size: 33px;
+      color: var(--ecr-dark);
+      border-left: 4px solid var(--ecr-orange);
+      padding-left: 20px;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .dash-insight strong {
+      color: var(--ecr-orange);
+      font-style: normal;
+    }
+
+    /* Funnel */
+    .dash-funnel {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 16px;
+    }
+
+    .dash-funnel-step {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 8px 16px;
+      border-radius: 6px;
+    }
+
+    .dash-funnel-bar {
+      height: 28px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+    }
+
+    .dash-funnel-label {
+      font-size: 18px;
+      color: var(--ecr-gray);
+      min-width: 200px;
+    }
+
+    .dash-funnel-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    /* ── Progress bar ── */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--ecr-orange), var(--ecr-blue));
+      z-index: 100;
+      transition: width 0.4s ease;
+    }
+
+    /* ── Slide pace notification ── */
+    .pace-notify {
+      position: fixed;
+      bottom: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+      background: rgba(232, 119, 43, 0.95);
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 10px 10px 0 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+      transition: bottom 0.4s ease;
+      max-width: 700px;
+    }
+
+    .pace-notify.visible {
+      bottom: 0;
+    }
+
+    .pace-notify.urgent {
+      background: rgba(220, 53, 69, 0.95);
+      animation: pace-pulse 1s ease-in-out infinite;
+    }
+
+    @keyframes pace-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .pace-notify .pace-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .pace-notify .pace-next {
+      font-size: 15px;
+      font-weight: 400;
+      opacity: 0.85;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Slide pace notification -->
+  <div class="pace-notify" id="paceNotify">
+    <div><span class="pace-time" id="paceTime">0:30</span> restantes en esta slide</div>
+    <div class="pace-next" id="paceNext">Siguiente: ...</div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+     FLOATING MINI-TIMER (visible en slides 3 y 4)
+     ══════════════════════════════════════════ -->
+  <div class="floating-timer" id="floatingTimer">
+    <svg class="ft-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12 6 12 12 16 14" />
+    </svg>
+    <div>
+      <div class="ft-time" id="ftTime">15:00</div>
+      <div class="ft-label">restante</div>
+    </div>
+  </div>
+
+  <div class="slides-wrapper" id="slidesWrapper">
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 1 — PORTADA (bg: CG_P-2.png)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--cover active" data-slide="1">
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 2 — TERMINAL + TIMER 15:00 (bg: CG-1.png)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--light" data-slide="2">
+      <div class="slide-body" style="justify-content: center; align-items: center; gap: 36px;">
+
+        <!-- Terminal -->
+        <div class="terminal">
+          <div class="terminal-bar" style="padding: 14px 20px;">
+            <span class="terminal-dot"
+              style="width: 16px; height: 16px; background: #ff5f56; border-radius: 50%;"></span>
+            <span class="terminal-dot"
+              style="width: 16px; height: 16px; background: #ffbd2e; border-radius: 50%;"></span>
+            <span class="terminal-dot"
+              style="width: 16px; height: 16px; background: #27c93f; border-radius: 50%;"></span>
+            <span class="terminal-bar-title" style="font-size: 18px;">ecr@convencion: ~</span>
+          </div>
+          <div class="terminal-body" style="font-size: 24px; line-height: 2; padding: 30px 36px; min-height: 240px;">
+            <div><span class="prompt-user">ecr@convención</span><span class="prompt">:</span><span
+                class="prompt-path">~</span><span class="prompt">$</span> <span
+                class="cmd">./iniciar-actividad.sh</span></div>
+            <div class="output">¿Quién quiere preguntarle algo al CRM?</div>
+            <div class="output">Tiempo asignado: 15 minutos</div>
+            <div class="output">Estado: <span style="color: #9ece6a;">EN CURSO</span></div>
+            <div><br></div>
+            <div><span class="prompt-user">ecr@convención</span><span class="prompt">:</span><span
+                class="prompt-path">~</span><span class="prompt">$</span> <span class="cursor"
+                style="width: 12px; height: 24px;"></span></div>
+          </div>
+        </div>
+
+        <!-- Timer inline -->
+        <div class="timer-inline" style="gap: 20px;">
+          <svg class="timer-icon" style="width: 48px; height: 48px;" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          <div class="timer-display" id="timerSlide2" style="font-size: 54px;">15:00</div>
+          <div class="timer-label" style="font-size: 22px;">minutos restantes</div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 3 — (bg: CG-2.png — oscuro)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--dark" data-slide="3">
+      <div class="slide-body">
+        <div class="slide-subtitle">Contexto</div>
+        <h2 class="slide-title">El marketing ya no es solo marketing</h2>
+
+        <div class="martech-layout">
+          <div class="martech-left">
+            <div class="martech-quote">
+              "Hace 3 años, jamás habría imaginado que hacer marketing
+              requeriría <span class="highlight">manejar un terminal</span>."
+            </div>
+
+            <div class="terminal" style="margin-top: 20px; width: 90%; max-width: 100%;">
+              <div class="terminal-bar">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-bar-title">ecr@marketing: ~/estrategia</span>
+              </div>
+              <div class="terminal-body"
+                style="min-height: auto; padding: 20px 24px; font-size: 19px; line-height: 1.8;">
+                <div>
+                  <span class="prompt-user">ecr@marketing</span>
+                  <span class="prompt">:</span>
+                  <span class="prompt-path">~/estrategia</span><span class="prompt">$</span>
+                  <br>
+                  <span class="cmd">diff herramientas-2023.txt herramientas-2026.txt</span>
+                </div>
+                <div><br></div>
+                <div style="color: #f7768e;">- Excel</div>
+                <div style="color: #f7768e;">- PowerPoint</div>
+                <div style="color: #f7768e;">- Email masivo</div>
+                <div style="color: #f7768e;">- Intuición</div>
+                <div><br></div>
+                <div style="color: #9ece6a;">+ CRM + IA</div>
+                <div style="color: #9ece6a;">+ Automatización</div>
+                <div style="color: #9ece6a;">+ APIs + Integraciones</div>
+                <div style="color: #9ece6a;">+ Datos en tiempo real</div>
+                <div><br></div>
+                <div><span class="prompt-user">ecr@marketing</span><span class="prompt">:</span><span
+                    class="prompt-path">~/estrategia</span><span class="prompt">$</span> <span class="cursor"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="martech-right">
+            <div class="martech-stat-card">
+              <div class="martech-stat-number">14k+</div>
+              <div class="martech-stat-label">herramientas MarTech en el mercado global</div>
+            </div>
+            <div class="martech-stat-card">
+              <div class="martech-stat-number">72%</div>
+              <div class="martech-stat-label">de empresas B2B ya usan IA en sus procesos comerciales</div>
+            </div>
+            <div class="martech-stat-card">
+              <div class="martech-stat-number">3x</div>
+              <div class="martech-stat-label">más conversión con automatización inteligente</div>
+            </div>
+            <div
+              style="font-size: 14px; color: rgba(255,255,255,0.25); line-height: 1.5; margin-top: 8px; padding: 0 4px;">
+              Fuentes: ChiefMartec 2024 &middot; McKinsey Global Survey on AI 2024 &middot; Salesforce State of
+              Marketing 2024 &middot; HubSpot 2024
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 4 — La industria se transforma + Nuestra evolucion (bg: CG-1.png)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--light" data-slide="4">
+      <div class="slide-body" style="justify-content: flex-start; margin-top: 15vh;">
+        <div class="slide-subtitle">La industria se transforma</div>
+        <h2 class="slide-title" style="margin-bottom: 16px;">Adaptarse o ser reemplazado</h2>
+
+        <!-- 3 Cards con linea en el medio -->
+        <div class="cards-row">
+
+          <!-- Card 1: Past -->
+          <div class="era-card era-card--past">
+
+            <div class="era-card-title" style="color: var(--ecr-gray); font-size: 33px;">Antes</div>
+            <ul class="era-card-list" style="font-size: 26px; color: var(--ecr-gray); padding-bottom: 60px;">
+              <li>Outsourcing = reducción de costos</li>
+              <li>Competencia por precio</li>
+              <li>Servicios commoditizados</li>
+            </ul>
+            <div class="era-card-period" style="color: var(--ecr-gray); font-size: 24px; margin-top: 7vh;">ECR®:
+              Presencia de Marca</div>
+            <ul class="era-card-list" style="font-size: 26px; color: var(--ecr-gray); ">
+              <li>Comunicaciones Internas</li>
+              <li>Apariciones en medios</li>
+              <li>Medios Tradicionales</li>
+              <li>Inversión acotada en Adwords</li>
+              <li>Sin Reportería</li>
+            </ul>
+          </div>
+
+          <!-- Card 2: Transition -->
+          <div class="era-card era-card--transition">
+
+            <div class="era-card-title" style="font-size: 33px;">Ayer</div>
+            <ul class="era-card-list" style="font-size: 26px; padding-bottom: 60px;">
+              <li>Clientes exigen valor agregado</li>
+              <li>IA automatiza lo repetitivo</li>
+              <li>Regulación eleva el estándar</li>
+            </ul>
+            <div class="era-card-period" style="color: var(--ecr-orange); font-size: 20px; margin-top: 7vh;">ECR®:
+              Transición a Foco Comercial
+            </div>
+            <ul class="era-card-list" style="font-size: 26px;">
+              <li>Piloto Agencia Interna</li>
+              <li>Administración de CRM</li>
+              <li>Reportería Gestión Comercial</li>
+              <li>Ecosistema MKC</li>
+            </ul>
+          </div>
+
+          <!-- Card 3: Future (hero) -->
+          <div class="era-card era-card--future">
+
+            <div class="era-card-title" style="font-size: 36px;">Ahora</div>
+            <ul class="era-card-list" style="font-size: 26px; padding-bottom: 60px;">
+              <li>Servicios potenciados con IA</li>
+              <li>Diferenciación por marca y datos</li>
+              <li>Sostenibilidad como requisito</li>
+            </ul>
+            <div class="era-card-period" style="font-size: 20px; margin-top: 7vh;">ECR®: Foco Comercial</div>
+            <ul class="era-card-list" style="font-size: 27px;">
+              <li>Marketing Digital (Martech)</li>
+              <li>Motor Comercial y CRM</li>
+              <li>Posicionamiento de Marca</li>
+              <li>Estudios e Investigación</li>
+              <li>Sostenibilidad</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 5 — NPS: De -26% a +50% (bg: CG-2.png)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--dark" data-slide="5">
+      <div class="slide-body" style="padding-top: 80px;">
+        <div class="slide-subtitle">NPS — 13 años de transformación</div>
+        <h2 class="slide-title" style="margin-bottom: 8px;">De -26% a +50%</h2>
+
+        <!-- Chart full width -->
+        <div class="nps-chart">
+          <!-- Positive bars (above axis) — negative years get spacer -->
+          <div class="nps-chart-pos">
+            <div class="nps-bar spacer" style="height: 0;"></div>
+            <div class="nps-bar spacer" style="height: 0;"></div>
+            <div class="nps-bar spacer" style="height: 0;"></div>
+            <div class="nps-bar spacer" style="height: 0;"></div>
+            <div class="nps-bar low pos-bar" style="height: 30%;"><span class="nps-bar-value">+15</span></div>
+            <div class="nps-bar low pos-bar" style="height: 10%;"></div>
+            <div class="nps-bar low pos-bar" style="height: 28%;"></div>
+            <div class="nps-bar high pos-bar" style="height: 62%;"><span class="nps-bar-value">+31</span></div>
+            <div class="nps-bar low pos-bar" style="height: 36%;"></div>
+            <div class="nps-bar low pos-bar" style="height: 16%;"></div>
+            <div class="nps-bar high pos-bar" style="height: 46%;"></div>
+            <div class="nps-bar high pos-bar" style="height: 76%;"><span class="nps-bar-value">+38</span></div>
+            <div class="nps-bar high pos-bar" style="height: 88%;"></div>
+            <div class="nps-bar hero pos-bar" style="height: 100%;"><span class="nps-bar-value">+50%</span></div>
+          </div>
+
+          <!-- Zero axis -->
+          <div class="nps-chart-zero"></div>
+
+          <!-- Negative bars (below axis) — positive years get spacer -->
+          <div class="nps-chart-neg">
+            <div class="nps-bar negative neg-bar" style="height: 100%;"><span class="nps-bar-value">-26</span><span
+                class="nps-bar-label">'12</span></div>
+            <div class="nps-bar negative neg-bar" style="height: 88%;"><span class="nps-bar-label">'13</span></div>
+            <div class="nps-bar negative neg-bar" style="height: 38%;"><span class="nps-bar-label">'14</span></div>
+            <div class="nps-bar negative neg-bar" style="height: 31%;"><span class="nps-bar-label">'15</span></div>
+            <div class="nps-bar spacer"><span class="nps-bar-label">'16</span></div>
+            <div class="nps-bar spacer"><span class="nps-bar-label">'17</span></div>
+            <div class="nps-bar spacer"><span class="nps-bar-label">'18</span></div>
+            <div class="nps-bar spacer"><span class="nps-bar-label">'19</span></div>
+            <div class="nps-bar spacer"><span class="nps-bar-label">'20</span></div>
+            <div class="nps-bar spacer"><span class="nps-bar-label">'21</span></div>
+            <div class="nps-bar spacer"><span class="nps-bar-label">'22</span></div>
+            <div class="nps-bar spacer"><span class="nps-bar-label">'23</span></div>
+            <div class="nps-bar spacer"><span class="nps-bar-label">'24</span></div>
+            <div class="nps-bar spacer"><span class="nps-bar-label">'25</span></div>
+          </div>
+        </div>
+
+        <!-- 4 eras como tabla horizontal -->
+        <div style="display: flex; gap: 16px; margin-bottom: 20px;">
+          <div class="nps-era" style="flex: 1; flex-direction: column; text-align: center;">
+            <div class="nps-era-period" style="margin-bottom: 6px;">2012–2016</div>
+            <div class="nps-era-title">Zona Negativa</div>
+            <div class="nps-era-desc">Partimos desde el fondo. Cumplir, responder, no fallar.</div>
+          </div>
+          <div class="nps-era" style="flex: 1; flex-direction: column; text-align: center;">
+            <div class="nps-era-period" style="margin-bottom: 6px;">2017–2019</div>
+            <div class="nps-era-title">Modelo Relacional</div>
+            <div class="nps-era-desc">Anticiparse. NPS de +5% a +31% en dos años.</div>
+          </div>
+          <div class="nps-era" style="flex: 1; flex-direction: column; text-align: center;">
+            <div class="nps-era-period" style="margin-bottom: 6px;">2020–2021</div>
+            <div class="nps-era-title">Pandemia</div>
+            <div class="nps-era-desc">Caída de -23 pp. La base relacional evitó un colapso.</div>
+          </div>
+          <div class="nps-era"
+            style="flex: 1; flex-direction: column; text-align: center; border: 2px solid rgba(39,201,63,0.3); background: rgba(39,201,63,0.08); box-shadow: 0 0 20px rgba(39,201,63,0.1), 0 0 40px rgba(39,201,63,0.05);">
+            <div class="nps-era-period" style="margin-bottom: 6px; color: #27c93f;">2022–2025</div>
+            <div class="nps-era-title" style="color: #27c93f; font-size: 30px;">Zona de Excelencia</div>
+            <div class="nps-era-desc">+42 pp en 4 años. Meta 2027: +55%.</div>
+          </div>
+        </div>
+
+        <!-- Stats en una fila -->
+        <div style="display: flex; align-items: center; gap: 40px; justify-content: center;">
+          <div class="nps-hero-stat" style="margin: 0;">
+            <div class="nps-hero-number"
+              style="color: #27c93f; text-shadow: 0 0 20px rgba(39,201,63,0.4), 0 0 40px rgba(39,201,63,0.2); animation: glow-76 3s ease-in-out infinite;">
+              +76 pp</div>
+            <div class="nps-hero-label">en 13 años</div>
+          </div>
+          <div style="width: 2px; height: 60px; background: rgba(255,255,255,0.1);"></div>
+          <div class="nps-bench-item nps-bench-item--industry" style="padding: 14px 30px;">
+            <div class="nps-bench-value">32%</div>
+            <div class="nps-bench-label">Industria</div>
+          </div>
+          <div class="nps-bench-item nps-bench-item--ecr" style="padding: 14px 30px;">
+            <div class="nps-bench-value">50%</div>
+            <div class="nps-bench-label">ECR® 2025</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 6 — La Paradoja del Outsourcing (bg: CG-1.png)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--light" data-slide="6">
+      <div class="slide-body" style="padding-top: 80px;">
+        <div class="slide-subtitle">RUBIK Deep Thinking — 15 entrevistas en profundidad</div>
+        <h2 class="slide-title" style="margin-bottom: 6px;">La Paradoja del Outsourcing</h2>
+        <p class="slide-text" style="font-size: 28px; margin-bottom: 16px;">El outsourcing opera en 3 dimensiones.
+          Resolver solo una genera un "operador correcto" pero nunca un "socio estratégico".</p>
+
+        <div class="paradox-layout">
+          <div class="paradox-col paradox-col--funcional">
+            <div class="paradox-dim-title">Funcional</div>
+            <div class="paradox-dim-sub">Continuidad</div>
+            <ul class="paradox-list">
+              <li>Dotación, reemplazos, cumplimiento</li>
+              <li>Procesos administrativos</li>
+              <li>Resolución rápida de incidencias</li>
+            </ul>
+            <div class="paradox-quote">"La operación no se puede detener. Es lo mínimo, pero es innegociable."</div>
+          </div>
+
+          <div class="paradox-col paradox-col--emocional">
+            <div class="paradox-dim-title">Emocional</div>
+            <div class="paradox-dim-sub">Incertidumbre</div>
+            <ul class="paradox-list">
+              <li>Fricción, pérdida de control</li>
+              <li>Rotación y pérdida de vínculos</li>
+              <li>Falta de comunicación proactiva</li>
+            </ul>
+            <div class="paradox-quote">"Lo que genera tensión no es el error, sino sentir que se pierde el control."
+            </div>
+          </div>
+
+          <div class="paradox-col paradox-col--simbolica">
+            <div class="paradox-dim-title">Simbólica</div>
+            <div class="paradox-dim-sub">Confianza</div>
+            <ul class="paradox-list">
+              <li>Liderazgo, expertise, anticipación</li>
+              <li>Conocimiento del negocio del cliente</li>
+              <li>Co-creación de valor e innovación</li>
+            </ul>
+            <div class="paradox-quote">"El cliente quiere un socio que piense por él, que anticipe, que innove."</div>
+          </div>
+        </div>
+
+        <div class="paradox-finding">
+          La diferenciación se juega en lo <strong>emocional</strong> y lo <strong>simbólico</strong>.
+          Lo funcional es condición necesaria pero no suficiente.
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 7 — Objetivos (bg: CG-2.png)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--dark" data-slide="7">
+      <div class="slide-body" style="padding-top: 90px;">
+        <div class="slide-subtitle">Estrategia</div>
+        <h2 class="slide-title">Objetivos</h2>
+
+        <div class="obj-layout">
+          <div class="obj-col">
+            <div class="obj-card">
+              <div class="obj-card-title">Tracción Comercial</div>
+              <ul class="obj-card-list">
+                <li>Verticales Industrias</li>
+                <li>Servicios (profundización)</li>
+                <li>Lead Generation</li>
+                <li>Gestión Comercial</li>
+              </ul>
+            </div>
+            <div class="obj-card">
+              <div class="obj-card-title">Posicionamiento de Marca</div>
+              <ul class="obj-card-list">
+                <li>Clientes actuales</li>
+                <li>Mercado</li>
+                <li>Sostenibilidad</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="obj-col">
+            <div class="terminal" style="width: 85%; max-width: 100%;">
+              <div class="terminal-bar">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-bar-title">ecr@estrategia: ~/objetivos</span>
+              </div>
+              <div class="terminal-body"
+                style="min-height: 220px; padding: 20px 20px; font-size: 26px; line-height: 2.0;">
+                <div><span class="prompt-user">ecr@estrategia</span><span class="prompt">:</span><span
+                    class="prompt-path">~/objetivos</span><span class="prompt">$</span> <span class="cmd">cat
+                    pilares-objetivos-focos.csv</span></div>
+                <div><br></div>
+                <div style="color: #565f89;">
+                  PILAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJETIVO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOCO
+                </div>
+                <div style="color: #565f89;">─────────────────────────────────────────</div>
+                <div><span
+                    style="color: #7aa2f7;">Branding</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Conectar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                    style="color: #e0af68;">Contexto</span></div>
+                <div><span
+                    style="color: #7aa2f7;">CRM</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Convertir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                    style="color: #e0af68;">Contacto</span></div>
+                <div><span
+                    style="color: #7aa2f7;">Contenidos</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Accionar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                    style="color: #e0af68;">Servicio</span></div>
+                <div><span style="color: #7aa2f7;">Sostenibilidad</span>&nbsp;&nbsp;Profundizar&nbsp;&nbsp;&nbsp;<span
+                    style="color: #e0af68;">Transformación</span></div>
+                <div><br></div>
+                <div class="output">4 registros leídos.</div>
+                <div><span class="prompt-user">ecr@estrategia</span><span class="prompt">:</span><span
+                    class="prompt-path">~/objetivos</span><span class="prompt">$</span> <span class="cursor"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 8 — Como y donde impactaremos (bg: CG-2.png)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--dark" data-slide="8">
+      <div class="slide-body" style="padding-top: 90px;">
+        <div class="slide-subtitle">Impacto</div>
+        <h2 class="slide-title">¿Cómo y dónde impactamos?</h2>
+        <p class="slide-text" style="margin-bottom: 16px; font-size: 29px;">Pilares y Ámbitos de Gestión</p>
+
+        <table class="matrix-table matrix-table--large">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Branding</th>
+              <th>Desarrollo de Contenidos</th>
+              <th>Desarrollo Comercial y CRM</th>
+              <th>Sostenibilidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td>Desarrollo de Marca</td>
+              <td>Relato</td>
+              <td>Business Analytics</td>
+              <td>Certificaciones</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Identidad de Servicios</td>
+              <td>Redes Sociales</td>
+              <td>Market Research</td>
+              <td>NPS y Planes de Acción</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Página Web</td>
+              <td>Blog / SEO</td>
+              <td>Lead Generation</td>
+              <td>Mejora de Procesos</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Contenido Audiovisual</td>
+              <td>Medios tradicionales y nuevos</td>
+              <td>Digital Ads</td>
+              <td>Empresa B u otra</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Eventos</td>
+              <td>RR.PP.</td>
+              <td>Administración de CRM</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td style="font-style: italic; opacity: 0.5;">[Comunicaciones Internas]</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 9 — TERMINAL + TIMER 00:00 (bg: CG-1.png)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--light" data-slide="9">
+      <div class="slide-body" style="justify-content: center; align-items: center; gap: 36px;">
+
+        <div class="terminal">
+          <div class="terminal-bar" style="padding: 14px 20px;">
+            <span class="terminal-dot"
+              style="width: 16px; height: 16px; background: #ff5f56; border-radius: 50%;"></span>
+            <span class="terminal-dot"
+              style="width: 16px; height: 16px; background: #ffbd2e; border-radius: 50%;"></span>
+            <span class="terminal-dot"
+              style="width: 16px; height: 16px; background: #27c93f; border-radius: 50%;"></span>
+            <span class="terminal-bar-title" style="font-size: 18px;">ecr@convención: ~</span>
+          </div>
+          <div class="terminal-body" style="font-size: 24px; line-height: 2; padding: 30px 36px;">
+            <div><span class="prompt-user">ecr@convención</span><span class="prompt">:</span><span
+                class="prompt-path">~</span><span class="prompt">$</span> <span
+                class="cmd">./iniciar-actividad.sh</span></div>
+            <div class="output">¿Quién quiere preguntarle algo al CRM?</div>
+            <div class="output">Tiempo asignado: 15 minutos</div>
+            <div class="output">Estado: <span style="color: #ff5f56;">FINALIZADO</span></div>
+            <div><br></div>
+            <div><span class="prompt-user">ecr@convención</span><span class="prompt">:</span><span
+                class="prompt-path">~</span><span class="prompt">$</span> <span class="cmd">echo "Tiempo
+                terminado!"</span></div>
+            <div style="color: #e0af68;">Tiempo terminado!</div>
+            <div><span class="prompt-user">ecr@convención</span><span class="prompt">:</span><span
+                class="prompt-path">~</span><span class="prompt">$</span> <span class="cursor"
+                style="width: 12px; height: 24px;"></span></div>
+          </div>
+        </div>
+
+        <div class="timer-inline" style="gap: 20px;">
+          <svg class="timer-icon" style="width: 48px; height: 48px;" viewBox="0 0 24 24" fill="none" stroke="#27c93f"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          <div class="timer-display" style="font-size: 54px; color: #27c93f;">00:00</div>
+          <div class="timer-label" style="font-size: 22px; color: rgba(41, 41, 41, 0.4);">actividad finalizada</div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 10 — Lo que viene: Brandbook + Sitio Web (bg: CG-2.png)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--dark" data-slide="10">
+      <div class="slide-body" style="justify-content: center; padding: 80px 60px;">
+        <div style="display: flex; gap: 30px; width: 100%; align-items: stretch;">
+          <div class="terminal" style="flex: 1;">
+            <div class="terminal-bar">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+              <span class="terminal-bar-title" style="font-size: 18px;">ecr@branding: ~/2026</span>
+            </div>
+            <div class="terminal-body" style="min-height: auto; padding: 24px 28px; font-size: 24px; line-height: 1.6;">
+              <div><span class="prompt-user">ecr@branding</span><span class="prompt">:</span><span
+                  class="prompt-path">~/2026</span><span class="prompt">$</span> <span class="cmd">cat
+                  sitio-web-nuevo.txt</span></div>
+              <div><br></div>
+              <div style="color: #9ece6a; font-size: 11px; line-height: 1.2; letter-spacing: 1px;">
+                <pre style="margin:0; font-family: 'JetBrains Mono', monospace; color: #9ece6a;">
+ ███████╗██╗████████╗██╗ ██████╗     ██╗    ██╗███████╗██████╗
+ ██╔════╝██║╚══██╔══╝██║██╔═══██╗    ██║    ██║██╔════╝██╔══██╗
+ ███████╗██║   ██║   ██║██║   ██║    ██║ █╗ ██║█████╗  ██████╔╝
+ ╚════██║██║   ██║   ██║██║   ██║    ██║███╗██║██╔══╝  ██╔══██╗
+ ███████║██║   ██║   ██║╚██████╔╝    ╚███╔███╔╝███████╗██████╔╝
+ ╚══════╝╚═╝   ╚═╝   ╚═╝ ╚═════╝      ╚══╝╚══╝ ╚══════╝╚═════╝
+     ███╗   ██╗██╗   ██╗███████╗██╗   ██╗ ██████╗ ██╗
+     ████╗  ██║██║   ██║██╔════╝██║   ██║██╔═══██╗██║
+     ██╔██╗ ██║██║   ██║█████╗  ██║   ██║██║   ██║██║
+     ██║╚██╗██║██║   ██║██╔══╝  ╚██╗ ██╔╝██║   ██║╚═╝
+     ██║ ╚████║╚██████╔╝███████╗ ╚████╔╝ ╚██████╔╝██╗
+     ╚═╝  ╚═══╝ ╚═════╝ ╚══════╝  ╚═══╝   ╚═════╝ ╚═╝</pre>
+              </div>
+              <div><br></div>
+              <div class="output" style="font-size: 22px;">Desplegando 3 sitios...</div>
+              <div style="color: #9ece6a; font-size: 24px;"> ✓ <a href="https://ecrgroup.cl" target="_blank"
+                  style="color: #7aa2f7; text-decoration: underline; text-underline-offset: 3px;">ecrgroup.cl</a> <span
+                  style="color: #565f89;">── ECR® GROUP</span></div>
+              <div style="color: #9ece6a; font-size: 24px;"> ✓ <a href="https://ecrsalud.cl" target="_blank"
+                  style="color: #7aa2f7; text-decoration: underline; text-underline-offset: 3px;">ecrsalud.cl</a> <span
+                  style="color: #565f89;">── ECR® SALUD</span></div>
+              <div style="color: #9ece6a; font-size: 24px;"> ✓ <a href="https://ecrcapacitacion.cl" target="_blank"
+                  style="color: #7aa2f7; text-decoration: underline; text-underline-offset: 3px;">ecrcapacitacion.cl</a>
+                <span style="color: #565f89;">── ECR® CAPACITACIÓN</span>
+              </div>
+              <div class="output" style="font-size: 22px;">Estado: <span style="color: #9ece6a;">LIVE</span> ● Listos
+                ahora.</div>
+            </div>
+          </div>
+          <div class="terminal" style="flex: 1;">
+            <div class="terminal-bar">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+              <span class="terminal-bar-title" style="font-size: 18px;">ecr@branding: ~/brandbook-2026</span>
+            </div>
+            <div class="terminal-body" style="min-height: auto; padding: 24px 28px; font-size: 18px; line-height: 1.8;">
+              <div><span class="prompt-user">ecr@branding</span><span class="prompt">:</span><span
+                  class="prompt-path">~/brandbook-2026</span><span class="prompt">$</span> <span class="cmd">ecr-cli
+                  install --all</span></div>
+              <div><br></div>
+              <div style="color: #e0af68;">Brandbook 2026 — Instalando activos...</div>
+              <div><br></div>
+
+              <div><span style="color: #9ece6a;">✓</span> Brandbook 2026</div>
+              <div><span style="color: #9ece6a;">✓</span> Presentación Comercial</div>
+              <div><span style="color: #9ece6a;">✓</span> Brochure</div>
+              <div><span style="color: #9ece6a;">✓</span> Fondo de pantalla</div>
+              <div><span style="color: #9ece6a;">✓</span> Portada LinkedIn</div>
+              <div><span style="color: #9ece6a;">✓</span> Formato hoja carta</div>
+              <div><span style="color: #9ece6a;">✓</span> Fondo Teams</div>
+              <div><span style="color: #9ece6a;">✓</span> Tipografía corporativa</div>
+              <div><br></div>
+              <div style="color: #9ece6a;">✓ 9 activos instalados.</div>
+              <div><span class="prompt-user">ecr@branding</span><span class="prompt">:</span><span
+                  class="prompt-path">~/brandbook-2026</span><span class="prompt">$ cd .. && cd generative-ai</span>
+                <span class="cursor"></span>
+                <div><span style="color: #9ece6a;">✓ <a href="firma-ecr/index.html" target="_blank"
+                      style="color: #7aa2f7; text-decoration: underline; text-underline-offset: 3px;">Pie de
+                      firma</a></span></div>
+                <div><span style="color: #9ece6a;">✓ <a href="https://ecr-content-fawn.vercel.app/dashboard"
+                      target="_blank"
+                      style="color: #7aa2f7; text-decoration: underline; text-underline-offset: 3px;">ECR®
+                      Content</a></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 11 — Collage Brandbook (bg: CG-1.png)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--light" data-slide="11">
+      <div class="slide-body" style="padding: 100px 60px 40px; justify-content: center; align-items: center;">
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 16px; width: 85%; max-width: 1100px; max-height: 70vh;">
+          <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+            <img src="img_sld11/lam01.png" style="width: 100%; height: 100%; object-fit: cover;" />
+          </div>
+          <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+            <img src="img_sld11/lam02.png" style="width: 100%; height: 100%; object-fit: cover;" />
+          </div>
+          <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+            <img src="img_sld11/lam3.png" style="width: 100%; height: 100%; object-fit: cover;" />
+          </div>
+          <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+            <img src="img_sld11/lam04.png" style="width: 100%; height: 100%; object-fit: cover;" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 12 — Pregunta (bg: CG-2.png)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--dark" data-slide="12">
+      <div class="slide-body" style="justify-content: center; align-items: center; text-align: center;">
+        <h2
+          style="font-size: clamp(48px, 6vw, 90px); font-weight: 800; color: #fff; line-height: 1.15; max-width: 900px;">
+          ¿Para qué y por qué hacemos <span style="color: var(--ecr-orange);">todo esto</span>?
+        </h2>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 13 — Todo se mide: El Ecosistema (bg: CG-1.png)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--light" data-slide="13">
+      <div class="slide-body" style="padding-top: 100px;">
+        <div class="slide-subtitle">Ecosistema de medición</div>
+        <h2 class="slide-title">Todo se mide. Todo se optimiza.</h2>
+
+        <!-- Flow diagram -->
+        <div class="dash-flow">
+          <div class="dash-flow-node">
+            <div class="dash-flow-node-title">Google Ads</div>
+            <div class="dash-flow-node-desc">Campañas, clicks, conversiones</div>
+          </div>
+          <div class="dash-flow-arrow">→</div>
+          <div class="dash-flow-node">
+            <div class="dash-flow-node-title">Sitio Web</div>
+            <div class="dash-flow-node-desc">GA4, formularios, GCLID</div>
+          </div>
+          <div class="dash-flow-arrow">→</div>
+          <div class="dash-flow-node">
+            <div class="dash-flow-node-title">CRM</div>
+            <div class="dash-flow-node-desc">Leads, deals, pipeline</div>
+          </div>
+          <div class="dash-flow-arrow">→</div>
+          <div class="dash-flow-node active">
+            <div class="dash-flow-node-title">Analytics</div>
+            <div class="dash-flow-node-desc">Dashboards, ROI, cohortes</div>
+          </div>
+          <div class="dash-flow-arrow">→</div>
+          <div class="dash-flow-node">
+            <div class="dash-flow-node-title">Optimización</div>
+            <div class="dash-flow-node-desc">Decisiones basadas en datos</div>
+          </div>
+        </div>
+
+        <!-- Terminal showing the data flow -->
+        <div class="terminal" style="margin-top: 24px;">
+          <div class="terminal-bar">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+            <span class="terminal-bar-title" style="font-size: 16px;">ecr@analytics: ~/q1-2026</span>
+          </div>
+          <div class="terminal-body" style="min-height: auto; padding: 20px 24px; font-size: 22px; line-height: 1.8;">
+            <div><span class="prompt-user">ecr@analytics</span><span class="prompt">:</span><span
+                class="prompt-path">~/q1-2026</span><span class="prompt">$</span> <span class="cmd">ecr-cli status
+                --tracking</span></div>
+            <div><br></div>
+            <div><span style="color: #9ece6a;">✓</span> GCLID en deals: <span style="color: #7aa2f7;">73%</span> <span
+                style="color: #565f89;">(141/193)</span></div>
+            <div><span style="color: #9ece6a;">✓</span> Ad Campaign Name: <span style="color: #7aa2f7;">70%</span>
+              <span style="color: #565f89;">(135/193)</span>
+            </div>
+            <div><span style="color: #9ece6a;">✓</span> Ad Click Date: <span style="color: #7aa2f7;">73%</span> <span
+                style="color: #565f89;">(141/193)</span></div>
+            <div><span style="color: #e0af68;">!</span> Deals sin tracking: <span style="color: #e0af68;">27%</span>
+              <span style="color: #565f89;">(52 — en investigacion)</span>
+            </div>
+            <div><br></div>
+            <div class="output">Sistema de atribucion: <span style="color: #9ece6a;">OPERATIVO</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 14 — Dashboard Q1 2026 (bg: CG-2.png)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--dark" data-slide="14">
+      <div class="slide-body" style="padding: 100px 60px 30px; justify-content: center;">
+        <div class="slide-subtitle">Click → Cierre por Cohorte</div>
+        <h2 class="slide-title" style="margin-bottom: 16px;">Línea de Tiempo: Maduración de Leads</h2>
+
+        <!-- Two column layout -->
+        <div style="display: flex; gap: 24px;">
+
+          <!-- LEFT: Gantt Chart -->
+          <div
+            style="flex: 2.4; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 20px 24px; display: flex; flex-direction: column; justify-content: center;">
+
+            <!-- Month headers -->
+            <div style="display: flex; margin-bottom: 10px; padding-left: 100px;">
+              <span
+                style="flex:1; text-align:center; font-family:'JetBrains Mono',monospace; font-size:18px; color:rgba(255,255,255,0.4);">Ago
+                25</span>
+              <span
+                style="flex:1; text-align:center; font-family:'JetBrains Mono',monospace; font-size:18px; color:rgba(255,255,255,0.4);">Nov
+                25</span>
+              <span
+                style="flex:1; text-align:center; font-family:'JetBrains Mono',monospace; font-size:18px; color:rgba(255,255,255,0.4);">Ene
+                26</span>
+              <span
+                style="flex:1; text-align:center; font-family:'JetBrains Mono',monospace; font-size:18px; color:rgba(255,255,255,0.4);">Mar
+                26</span>
+              <span
+                style="flex:1; text-align:center; font-family:'JetBrains Mono',monospace; font-size:18px; color:rgba(255,255,255,0.4);">May
+                26</span>
+              <span
+                style="flex:1; text-align:center; font-family:'JetBrains Mono',monospace; font-size:18px; color:rgba(255,255,255,0.4);">Jul
+                26</span>
+            </div>
+
+            <!-- Ago 2025 -->
+            <div style="display:flex; align-items:center; margin-bottom:6px;">
+              <div style="width:120px; font-size:23px; font-weight:700; color:#fff;">Ago 2025</div>
+              <div style="flex:1; position:relative; height:29px;">
+                <div
+                  style="position:absolute; left:0%; width:8%; height:100%; background:#e8772b; border-radius:3px; box-shadow: 0 0 6px rgba(232,119,43,0.5);">
+                </div>
+                <div
+                  style="position:absolute; left:8%; width:30%; height:100%; background:rgba(39,201,63,0.25); border-radius:3px;">
+                </div>
+                <div
+                  style="position:absolute; left:55%; width:12%; height:100%; background:#1a6b93; border-radius:3px; box-shadow: 0 0 6px rgba(26,107,147,0.5);">
+                </div>
+                <div
+                  style="position:absolute; left:75%; width:15%; height:100%; background:#1a6b93; border-radius:3px; box-shadow: 0 0 6px rgba(26,107,147,0.5);">
+                </div>
+              </div>
+            </div>
+            <div style="text-align:right; font-size:18px; color:rgba(255,255,255,0.5); margin-bottom:18px;">18 deals · 3
+              cerrados (<span style="color:#1a6b93;">$4.4M</span>) · Ciclo: 219-304d</div>
+
+            <!-- Nov 2025 -->
+            <div style="display:flex; align-items:center; margin-bottom:6px;">
+              <div style="width:120px; font-size:23px; font-weight:700; color:#fff;">Nov 2025</div>
+              <div style="flex:1; position:relative; height:29px;">
+                <div
+                  style="position:absolute; left:25%; width:8%; height:100%; background:#e8772b; border-radius:3px; box-shadow: 0 0 6px rgba(232,119,43,0.5);">
+                </div>
+                <div
+                  style="position:absolute; left:33%; width:20%; height:100%; background:rgba(39,201,63,0.25); border-radius:3px;">
+                </div>
+                <div
+                  style="position:absolute; left:38%; width:18%; height:100%; background:#1a6b93; border-radius:3px; box-shadow: 0 0 6px rgba(26,107,147,0.5);">
+                </div>
+              </div>
+            </div>
+            <div style="text-align:right; font-size:18px; color:rgba(255,255,255,0.5); margin-bottom:18px;">10 deals · 3
+              cerrados (<span style="color:#1a6b93;">$660K</span>) · Ciclo: 63-93d</div>
+
+            <!-- Ene 2026 -->
+            <div style="display:flex; align-items:center; margin-bottom:6px;">
+              <div style="width:120px; font-size:23px; font-weight:700; color:var(--ecr-orange);">Ene 2026</div>
+              <div style="flex:1; position:relative; height:29px;">
+                <div
+                  style="position:absolute; left:42%; width:8%; height:100%; background:#e8772b; border-radius:3px; box-shadow: 0 0 6px rgba(232,119,43,0.5);">
+                </div>
+                <div
+                  style="position:absolute; left:50%; width:25%; height:100%; background:rgba(39,201,63,0.45); border-radius:3px;">
+                </div>
+              </div>
+            </div>
+            <div style="text-align:right; font-size:18px; color:rgba(255,255,255,0.5); margin-bottom:18px;">6 deals ·
+              <span style="color:var(--ecr-orange); font-weight:700;">$9.3M pipeline</span> · <span
+                style="color:#27c93f; font-weight:700;">Madurando</span>
+            </div>
+
+            <!-- Feb 2026 -->
+            <div style="display:flex; align-items:center; margin-bottom:6px;">
+              <div style="width:120px; font-size:23px; font-weight:700; color:var(--ecr-orange);">Feb 2026</div>
+              <div style="flex:1; position:relative; height:29px;">
+                <div
+                  style="position:absolute; left:50%; width:8%; height:100%; background:#e8772b; border-radius:3px; box-shadow: 0 0 6px rgba(232,119,43,0.5);">
+                </div>
+                <div
+                  style="position:absolute; left:58%; width:20%; height:100%; background:rgba(39,201,63,0.45); border-radius:3px;">
+                </div>
+                <div
+                  style="position:absolute; left:58%; width:12%; height:100%; background:#1a6b93; border-radius:3px; box-shadow: 0 0 6px rgba(26,107,147,0.5);">
+                </div>
+              </div>
+            </div>
+            <div style="text-align:right; font-size:18px; color:rgba(255,255,255,0.5); margin-bottom:18px;">5 deals · 1
+              cerrado (<span style="color:#1a6b93;">$1.1M</span>) · <span
+                style="color:var(--ecr-orange); font-weight:700;">$8.4M pipeline</span></div>
+
+            <!-- Mar 2026 -->
+            <div style="display:flex; align-items:center; margin-bottom:6px;">
+              <div style="width:120px; font-size:23px; font-weight:700; color:var(--ecr-orange);">Mar 2026</div>
+              <div style="flex:1; position:relative; height:29px;">
+                <div
+                  style="position:absolute; left:58%; width:8%; height:100%; background:#e8772b; border-radius:3px; box-shadow: 0 0 6px rgba(232,119,43,0.5);">
+                </div>
+                <div
+                  style="position:absolute; left:66%; width:20%; height:100%; background:rgba(39,201,63,0.45); border-radius:3px;">
+                </div>
+              </div>
+            </div>
+            <div style="text-align:right; font-size:18px; color:rgba(255,255,255,0.5); margin-bottom:14px;">1 deal ·
+              <span style="color:var(--ecr-orange);">$1.1M pipeline</span> · <span
+                style="color:rgba(255,255,255,0.3);">Muy temprano</span>
+            </div>
+
+            <!-- Legend -->
+            <div style="display:flex; gap:20px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.06);">
+              <div style="display:flex; align-items:center; gap:6px; font-size:17px; color:rgba(255,255,255,0.4);"><span
+                  style="width:12px; height:12px; background:#e8772b; border-radius:3px; display:inline-block;"></span>
+                Click</div>
+              <div style="display:flex; align-items:center; gap:6px; font-size:17px; color:rgba(255,255,255,0.4);"><span
+                  style="width:12px; height:12px; background:#1a6b93; border-radius:3px; display:inline-block;"></span>
+                Cierre</div>
+              <div style="display:flex; align-items:center; gap:6px; font-size:17px; color:rgba(255,255,255,0.4);"><span
+                  style="width:12px; height:12px; background:rgba(39,201,63,0.5); border-radius:3px; display:inline-block;"></span>
+                Ventana esperada</div>
+              <div style="display:flex; align-items:center; gap:6px; font-size:17px; color:rgba(255,255,255,0.4);"><span
+                  style="width:12px; height:12px; background:rgba(39,201,63,0.25); border-radius:3px; display:inline-block;"></span>
+                Maduración</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROI + KPIs horizontal row below chart -->
+        <div style="display: flex; gap: 14px; margin-top: 14px; align-items: stretch;">
+
+          <!-- 3 KPIs -->
+          <div
+            style="flex:1; text-align:center; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:12px 8px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:45px; font-weight:700; color:#dc3545;">51.2%
+            </div>
+            <div style="font-size:18px; color:rgba(255,255,255,0.4);">Leads son ruido</div>
+          </div>
+          <div
+            style="flex:1; text-align:center; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:12px 8px;">
+            <div
+              style="font-family:'JetBrains Mono',monospace; font-size:45px; font-weight:700; color:var(--ecr-orange);">
+              $270K</div>
+            <div style="font-size:18px; color:rgba(255,255,255,0.4);">Costo/lead real</div>
+          </div>
+          <div
+            style="flex:1; text-align:center; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:12px 8px;">
+            <div
+              style="font-family:'JetBrains Mono',monospace; font-size:45px; font-weight:700; color:var(--ecr-blue);">
+              129d</div>
+            <div style="font-size:18px; color:rgba(255,255,255,0.4);">Ciclo click → cierre</div>
+          </div>
+
+          <!-- Separator -->
+          <div style="width:2px; background:rgba(255,255,255,0.08); margin: 4px 0;"></div>
+
+          <!-- ROI Scenarios -->
+          <div
+            style="flex:1; text-align:center; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:12px 8px;">
+            <div
+              style="font-size:14px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">
+              Solo cierres</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:45px; font-weight:700; color:#dc3545;">-87,7%
+            </div>
+          </div>
+          <div
+            style="flex:1; text-align:center; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:12px 8px;">
+            <div
+              style="font-size:14px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">
+              30% pipeline</div>
+            <div
+              style="font-family:'JetBrains Mono',monospace; font-size:45px; font-weight:700; color:var(--ecr-orange);">
+              -26,4%</div>
+          </div>
+          <div
+            style="flex:1; text-align:center; background:rgba(26,107,147,0.08); border:1px solid rgba(26,107,147,0.2); border-radius:8px; padding:12px 8px;">
+            <div
+              style="font-size:14px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">
+              50% pipeline</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:45px; font-weight:700; color:#27a844;">+20,8%
+            </div>
+          </div>
+          <div
+            style="flex:1; text-align:center; background:rgba(26,107,147,0.08); border:1px solid rgba(26,107,147,0.2); border-radius:8px; padding:12px 8px;">
+            <div
+              style="font-size:14px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">
+              100% pipeline</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:45px; font-weight:700; color:#27a844;">+121,8%
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 15 — Cosecha vs Siembra (bg: CG-1.png)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--light" data-slide="15">
+      <div class="slide-body" style="padding-top: 100px;">
+        <div class="slide-subtitle">ROI real — Un nuevo framework</div>
+        <h2 class="slide-title" style="margin-bottom: 12px;">Cosecha vs Siembra</h2>
+
+        <div class="dash-vs">
+          <!-- Cosecha -->
+          <div class="dash-vs-col dash-vs-col--cosecha">
+            <div class="dash-vs-title">Cosecha</div>
+            <div class="dash-vs-subtitle">Lo que se cobró (semillas de 2025)</div>
+            <div class="dash-vs-stat">
+              <span class="dash-vs-stat-label">Cierres</span>
+              <span class="dash-vs-stat-value">6 deals</span>
+            </div>
+            <div class="dash-vs-stat">
+              <span class="dash-vs-stat-label">Revenue</span>
+              <span class="dash-vs-stat-value">$2.2M</span>
+            </div>
+            <div class="dash-vs-stat">
+              <span class="dash-vs-stat-label">Mejor campaña</span>
+              <span class="dash-vs-stat-value">ECR® Capacitación</span>
+            </div>
+            <div class="dash-vs-stat" style="border: none;">
+              <span class="dash-vs-stat-label">Ciclo más rápido</span>
+              <span class="dash-vs-stat-value">28 dias</span>
+            </div>
+          </div>
+
+          <!-- Siembra -->
+          <div class="dash-vs-col dash-vs-col--siembra">
+            <div class="dash-vs-title">Siembra</div>
+            <div class="dash-vs-subtitle">Lo que generó la inversión Q1 2026</div>
+            <div class="dash-vs-stat">
+              <span class="dash-vs-stat-label">Pipeline</span>
+              <span class="dash-vs-stat-value">$19.8M</span>
+            </div>
+            <div class="dash-vs-stat">
+              <span class="dash-vs-stat-label">Deals activos</span>
+              <span class="dash-vs-stat-value">12 deals</span>
+            </div>
+            <div class="dash-vs-stat">
+              <span class="dash-vs-stat-label">En propuesta</span>
+              <span class="dash-vs-stat-value">7 ($18M)</span>
+            </div>
+            <div class="dash-vs-stat" style="border: none;">
+              <span class="dash-vs-stat-label">ROI si cierra 50%</span>
+              <span class="dash-vs-stat-value">+131%</span>
+            </div>
+          </div>
+        </div>
+
+        <!--<div class="dash-insight">
+          "El ROI de -74.8% compara <strong>gasto de hoy</strong> con <strong>semillas de ayer</strong>.
+          Si eliminamos el ruido (51% de leads), el mismo pipeline se genera con la mitad del presupuesto."
+        </div>-->
+
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 16 — CIERRE (bg: CG_CP-2.png)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--closing" data-slide="16">
+    </div>
+
+
+    <!-- Navigation controls -->
+    <div class="nav-controls">
+      <button class="nav-btn" onclick="prevSlide()" title="Anterior">&#8592;</button>
+      <button class="nav-btn" onclick="nextSlide()" title="Siguiente">&#8594;</button>
+    </div>
+
+    <div class="slide-counter" id="slideCounter">1 / 9</div>
+
+  </div>
+
+  <script>
+    let current = 0;
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+    const counter = document.getElementById('slideCounter');
+    const progressBar = document.getElementById('progressBar');
+
+    // ── Timer state ──
+    const TIMER_SECONDS = 15 * 60; // 15 minutos
+    let timerRemaining = TIMER_SECONDS;
+    let timerInterval = null;
+    let timerStarted = false;
+
+    const timerSlide2 = document.getElementById('timerSlide2');
+    const floatingTimer = document.getElementById('floatingTimer');
+    const ftTime = document.getElementById('ftTime');
+
+    function formatTime(seconds) {
+      const m = Math.floor(seconds / 60);
+      const s = seconds % 60;
+      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function updateTimerDisplays() {
+      const formatted = formatTime(timerRemaining);
+
+      // Slide 2 inline timer
+      if (timerSlide2) timerSlide2.textContent = formatted;
+
+      // Floating timer
+      ftTime.textContent = formatted;
+
+      // Warning state when < 2 minutes
+      if (timerRemaining <= 120 && timerRemaining > 0) {
+        floatingTimer.classList.add('warning');
+      } else {
+        floatingTimer.classList.remove('warning');
+      }
+    }
+
+    function startTimer() {
+      if (timerStarted) return;
+      timerStarted = true;
+      timerInterval = setInterval(() => {
+        if (timerRemaining > 0) {
+          timerRemaining--;
+          updateTimerDisplays();
+        } else {
+          clearInterval(timerInterval);
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+
+    // ── Slide navigation ──
+    function showSlide(index) {
+      slides.forEach(s => s.classList.remove('active'));
+      slides[index].classList.add('active');
+      counter.textContent = `${index + 1} / ${total}`;
+      progressBar.style.width = `${((index + 1) / total) * 100}%`;
+
+      const slideNum = index + 1; // 1-based
+
+      // Timer logic: start on slide 2, show floating on 3-8, hide on others
+      // Timer never stops — keeps counting even if you navigate back
+      if (slideNum === 2) {
+        startTimer();
+        floatingTimer.classList.remove('visible');
+      } else if (slideNum >= 3 && slideNum <= 8) {
+        startTimer();
+        floatingTimer.classList.add('visible');
+      } else {
+        floatingTimer.classList.remove('visible');
+      }
+    }
+
+    function nextSlide() {
+      if (current < total - 1) { current++; showSlide(current); }
+    }
+
+    function prevSlide() {
+      if (current > 0) { current--; showSlide(current); }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+        e.preventDefault(); nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault(); prevSlide();
+      } else if (e.key === 'Home') {
+        current = 0; showSlide(current);
+      } else if (e.key === 'End') {
+        current = total - 1; showSlide(current);
+      }
+    });
+
+    // Touch support
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+    document.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) { diff > 0 ? nextSlide() : prevSlide(); }
+    });
+
+    // ── Draggable floating timer ──
+    (function () {
+      const ft = document.getElementById('floatingTimer');
+      let isDragging = false, offsetX, offsetY;
+
+      ft.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - ft.getBoundingClientRect().left;
+        offsetY = e.clientY - ft.getBoundingClientRect().top;
+        ft.style.cursor = 'grabbing';
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        ft.style.right = 'auto';
+        ft.style.left = (e.clientX - offsetX) + 'px';
+        ft.style.top = (e.clientY - offsetY) + 'px';
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          ft.style.cursor = 'grab';
+        }
+      });
+
+      // Touch support
+      ft.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        const touch = e.touches[0];
+        offsetX = touch.clientX - ft.getBoundingClientRect().left;
+        offsetY = touch.clientY - ft.getBoundingClientRect().top;
+        e.preventDefault();
+      }, { passive: false });
+
+      document.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        const touch = e.touches[0];
+        ft.style.right = 'auto';
+        ft.style.left = (touch.clientX - offsetX) + 'px';
+        ft.style.top = (touch.clientY - offsetY) + 'px';
+      }, { passive: false });
+
+      document.addEventListener('touchend', () => { isDragging = false; });
+    })();
+
+    // ── Slide pace timer (2.5 min per slide) ──
+    const PACE_SECONDS = 150; // 2.5 minutes
+    const PACE_WARN = 30; // show notification at 30s remaining
+    let paceRemaining = PACE_SECONDS;
+    let paceInterval = null;
+
+    const paceNotify = document.getElementById('paceNotify');
+    const paceTime = document.getElementById('paceTime');
+    const paceNext = document.getElementById('paceNext');
+
+    const slideTitles = [
+      'Portada',                              // 1
+      'Terminal + Timer',                     // 2
+      'El marketing ya no es solo marketing', // 3
+      'Adaptarse o ser reemplazado',          // 4
+      'NPS: De -26% a +50%',                 // 5
+      'La Paradoja del Outsourcing',          // 6
+      'Objetivos',                            // 7
+      'Cómo y dónde impactaremos',            // 8
+      'Terminal — Actividad finalizada',      // 9
+      'Sitio Web + Brandbook',                // 10
+      'Collage Brandbook',                    // 11
+      'Para qué y por qué hacemos todo esto', // 12
+      'Todo se mide. Todo se optimiza.',      // 13
+      'Línea de Tiempo: Maduración',          // 14
+      'Cosecha vs Siembra',                   // 15
+      'Cierre',                               // 16
+    ];
+
+    function resetPaceTimer() {
+      paceRemaining = PACE_SECONDS;
+      paceNotify.classList.remove('visible', 'urgent');
+    }
+
+    function startPaceTimer() {
+      if (paceInterval) clearInterval(paceInterval);
+      resetPaceTimer();
+      paceInterval = setInterval(() => {
+        paceRemaining--;
+        if (paceRemaining <= PACE_WARN && paceRemaining > 0) {
+          paceTime.textContent = `0:${String(paceRemaining).padStart(2, '0')}`;
+          const nextTitle = slideTitles[current + 1] || 'Fin';
+          paceNext.textContent = `Siguiente: ${nextTitle}`;
+          paceNotify.classList.add('visible');
+          if (paceRemaining <= 10) {
+            paceNotify.classList.add('urgent');
+          }
+        } else if (paceRemaining <= 0) {
+          paceTime.textContent = '0:00';
+          paceNotify.classList.add('urgent');
+        }
+      }, 1000);
+    }
+
+    // Override showSlide to reset pace timer on slide change
+    const _origShowSlide = showSlide;
+    showSlide = function(index) {
+      _origShowSlide(index);
+      resetPaceTimer();
+      startPaceTimer();
+    };
+
+    showSlide(0);
+  </script>
+
+</body>
+
+</html>
