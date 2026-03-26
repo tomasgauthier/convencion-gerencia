@@ -531,10 +531,77 @@
       backdrop-filter: blur(8px);
       opacity: 0;
       transition: opacity 0.3s;
+      cursor: pointer;
     }
 
     .slides-wrapper:hover .slide-counter {
       opacity: 1;
+    }
+
+    /* ── Go-to-slide overlay ── */
+    .goto-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s, visibility 0.25s;
+    }
+
+    .goto-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .goto-box {
+      background: #1a1b26;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 28px 36px;
+      text-align: center;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+    }
+
+    .goto-box label {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ecr-orange);
+      margin-bottom: 12px;
+    }
+
+    .goto-box input {
+      width: 100px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 36px;
+      font-weight: 700;
+      text-align: center;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 8px 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .goto-box input:focus {
+      border-color: var(--ecr-orange);
+    }
+
+    .goto-box .goto-hint {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.35);
+      margin-top: 10px;
     }
 
     /* ══════════════════════════════════════════
@@ -1755,7 +1822,7 @@
     }
 
     .dash-vs-title {
-      font-size: 42px;
+      font-size: 34px;
       font-weight: 700;
       margin-bottom: 6px;
     }
@@ -1769,7 +1836,7 @@
     }
 
     .dash-vs-subtitle {
-      font-size: 24px;
+      font-size: 19px;
       color: var(--ecr-gray);
       margin-bottom: 16px;
       font-style: italic;
@@ -1781,7 +1848,7 @@
       align-items: baseline;
       padding: 10px 0;
       border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-      font-size: 30px;
+      font-size: 24px;
     }
 
     .dash-vs-stat-label {
@@ -1963,7 +2030,11 @@
       <div class="slide-body" style="justify-content: center; align-items: center; gap: 36px;">
 
         <!-- Terminal -->
-        <div class="terminal">
+        <div class="terminal" style="cursor: pointer; transition: box-shadow 0.3s, transform 0.3s;"
+          onmouseover="this.style.boxShadow='0 20px 60px rgba(0,0,0,0.4), 0 0 0 2px var(--ecr-orange)'; this.style.transform='scale(1.01)'"
+          onmouseout="this.style.boxShadow=''; this.style.transform='scale(1)'"
+          onclick="this.querySelector('.terminal-hint').style.opacity='1'; setTimeout(() => this.querySelector('.terminal-hint').style.opacity='0', 2000)"
+          title="Abrir terminal con Claude">
           <div class="terminal-bar" style="padding: 14px 20px;">
             <span class="terminal-dot"
               style="width: 16px; height: 16px; background: #ff5f56; border-radius: 50%;"></span>
@@ -1972,6 +2043,9 @@
             <span class="terminal-dot"
               style="width: 16px; height: 16px; background: #27c93f; border-radius: 50%;"></span>
             <span class="terminal-bar-title" style="font-size: 18px;">ecr@convencion: ~</span>
+            <span class="terminal-hint"
+              style="font-size: 12px; color: var(--ecr-orange); opacity: 0; transition: opacity 0.3s; margin-left: auto;">Alt+Tab
+              → Terminal</span>
           </div>
           <div class="terminal-body" style="font-size: 24px; line-height: 2; padding: 30px 36px; min-height: 240px;">
             <div><span class="prompt-user">ecr@convención</span><span class="prompt">:</span><span
@@ -2308,7 +2382,7 @@
        SLIDE 7 — Objetivos (bg: CG-2.png)
        ═══════════════════════════════════════════════════ -->
     <div class="slide slide--dark" data-slide="7">
-      <div class="slide-body" style="padding-top: 150px; justify-content: flex-start;">
+      <div class="slide-body" style="padding-top: 150px; justify-content: center;">
         <div class="slide-subtitle">Estrategia</div>
         <h2 class="slide-title">Objetivos</h2>
 
@@ -2588,22 +2662,43 @@
     <!-- ═══════════════════════════════════════════════════
        SLIDE 11 — Collage Brandbook (bg: CG-1.png)
        ═══════════════════════════════════════════════════ -->
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 11 — Brandbook: Brochure Comercial (bg: CG-1.png)
+       ═══════════════════════════════════════════════════ -->
     <div class="slide slide--light" data-slide="11">
-      <div class="slide-body" style="padding: 100px 60px 40px; justify-content: center; align-items: center;">
+      <div class="slide-body" style="padding: 80px 60px 40px; justify-content: center; align-items: center;">
 
-        <div
-          style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 16px; width: 85%; max-width: 1100px; max-height: 70vh;">
-          <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-            <img src="img_sld11/lam01.png" style="width: 100%; height: 100%; object-fit: cover;" />
+        <div style="text-align: center; margin-bottom: 24px;">
+          <div class="slide-subtitle">Identidad Visual</div>
+          <h2 class="slide-title" style="margin-bottom: 6px;">Brochure Comercial 2026</h2>
+        </div>
+
+        <div style="
+          display: flex;
+          gap: 24px;
+          width: 100%;
+          max-width: 1500px;
+          height: 68vh;
+          justify-content: center;
+          align-items: center;
+        ">
+          <div style="
+            flex: 1;
+            height: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 0 0 1px rgba(26,107,147,0.08);
+          ">
+            <img src="img_sld11/lam01.png" style="width: 100%; height: 100%;" />
           </div>
-          <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-            <img src="img_sld11/lam02.png" style="width: 100%; height: 100%; object-fit: cover;" />
-          </div>
-          <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-            <img src="img_sld11/lam3.png" style="width: 100%; height: 100%; object-fit: cover;" />
-          </div>
-          <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-            <img src="img_sld11/lam04.png" style="width: 100%; height: 100%; object-fit: cover;" />
+          <div style="
+            flex: 1;
+            height: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 0 0 1px rgba(26,107,147,0.08);
+          ">
+            <img src="img_sld11/lam02.png" style="width: 100%; height: 100%;" />
           </div>
         </div>
 
@@ -2612,9 +2707,127 @@
 
 
     <!-- ═══════════════════════════════════════════════════
-       SLIDE 12 — Pregunta (bg: CG-2.png)
+       SLIDE 12 — Brandbook: Marca y Sub-marcas (bg: CG-1.png)
        ═══════════════════════════════════════════════════ -->
-    <div class="slide slide--dark" data-slide="12">
+    <div class="slide slide--light" data-slide="12">
+      <div class="slide-body" style="padding: 80px 60px 40px; justify-content: center; align-items: center;">
+
+        <div style="text-align: center; margin-bottom: 24px;">
+          <div class="slide-subtitle">Identidad Visual</div>
+          <h2 class="slide-title" style="margin-bottom: 6px;">Marca y Sub-marcas</h2>
+        </div>
+
+        <div style="
+          display: flex;
+          gap: 24px;
+          width: 100%;
+          max-width: 1500px;
+          height: 68vh;
+          justify-content: center;
+          align-items: center;
+        ">
+          <div style="
+            flex: 1;
+            height: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 0 0 1px rgba(26,107,147,0.08);
+            display: flex; align-items: center; justify-content: center;
+          ">
+            <img src="img_sld11/lam3.png" style="width: 100%; height: 100%; object-fit: contain; padding: 12px;" />
+          </div>
+          <div style="
+            flex: 1;
+            height: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 0 0 1px rgba(26,107,147,0.08);
+            display: flex; align-items: center; justify-content: center;
+          ">
+            <img src="img_sld11/lam04.png" style="width: 100%; height: 100%; object-fit: contain; padding: 12px;" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 13 — Generador de Firma ECR (embedded)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--light" data-slide="13">
+      <div class="slide-body" style="padding: 70px 30px 20px; align-items: center;">
+        <div style="text-align: center; margin-bottom: 10px;">
+          <div class="slide-subtitle">Herramientas internas</div>
+        </div>
+
+        <div style="
+          width: 100%;
+          max-width: 1400px;
+          height: 60vh;
+          border-radius: 14px;
+          overflow: hidden;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 0 0 1px rgba(26,107,147,0.08);
+        ">
+          <iframe src="firma-ecr/index.html"
+            style="width: 100%; height: 100%; border: none; background: #f0f2f5; display: block;"
+            loading="lazy"></iframe>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 14 — Dashboard ECR Content (iframe)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--dark" data-slide="14">
+      <div class="slide-body" style="padding: 80px 40px 40px; justify-content: center; align-items: center;">
+
+        <div style="text-align: center; margin-bottom: 16px;">
+          <div class="slide-subtitle">Herramientas internas</div>
+          <h2 class="slide-title" style="margin-bottom: 4px;">ECR® Content</h2>
+        </div>
+
+        <a href="https://ecr-content-fawn.vercel.app/dashboard" target="_blank" rel="noopener" style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            width: 100%;
+            max-width: 700px;
+            padding: 60px 40px;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.04);
+            border: 2px dashed rgba(255,255,255,0.15);
+            text-decoration: none;
+            transition: background 0.3s, border-color 0.3s;
+            cursor: pointer;
+          " onmouseover="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='var(--ecr-orange)'"
+          onmouseout="this.style.background='rgba(255,255,255,0.04)'; this.style.borderColor='rgba(255,255,255,0.15)'">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--ecr-orange)" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+            <polyline points="15 3 21 3 21 9" />
+            <line x1="10" y1="14" x2="21" y2="3" />
+          </svg>
+          <span style="font-size: clamp(20px, 2.5vw, 28px); font-weight: 600; color: #fff;">Abrir Dashboard en nueva
+            pestaña</span>
+          <span
+            style="font-size: 15px; color: rgba(255,255,255,0.45); font-family: 'JetBrains Mono', monospace;">ecr-content-fawn.vercel.app/dashboard</span>
+        </a>
+
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 15 — Pregunta (bg: CG-2.png)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--dark" data-slide="15">
       <div class="slide-body" style="justify-content: center; align-items: center; text-align: center;">
         <h2
           style="font-size: clamp(48px, 6vw, 90px); font-weight: 800; color: #fff; line-height: 1.15; max-width: 900px;">
@@ -2625,9 +2838,9 @@
 
 
     <!-- ═══════════════════════════════════════════════════
-       SLIDE 13 — Todo se mide: El Ecosistema (bg: CG-1.png)
+       SLIDE 16 — Todo se mide: El Ecosistema (bg: CG-1.png)
        ═══════════════════════════════════════════════════ -->
-    <div class="slide slide--light" data-slide="13">
+    <div class="slide slide--light" data-slide="16">
       <div class="slide-body" style="padding-top: 100px;">
         <div class="slide-subtitle">Ecosistema de medición</div>
         <h2 class="slide-title">Todo se mide. Todo se optimiza.</h2>
@@ -2693,9 +2906,9 @@
 
 
     <!-- ═══════════════════════════════════════════════════
-       SLIDE 14 — Dashboard Q1 2026 (bg: CG-2.png)
+       SLIDE 17 — Dashboard Q1 2026 (bg: CG-2.png)
        ═══════════════════════════════════════════════════ -->
-    <div class="slide slide--dark" data-slide="14">
+    <div class="slide slide--dark" data-slide="17">
       <div class="slide-body" style="padding: 100px 60px 30px; justify-content: center;">
         <div class="slide-subtitle">Click → Cierre por Cohorte</div>
         <h2 class="slide-title" style="margin-bottom: 16px;">Línea de Tiempo: Maduración de Leads</h2>
@@ -2909,9 +3122,9 @@
 
 
     <!-- ═══════════════════════════════════════════════════
-       SLIDE 15 — Cosecha vs Siembra (bg: CG-1.png)
+       SLIDE 18 — Cosecha vs Siembra (bg: CG-1.png)
        ═══════════════════════════════════════════════════ -->
-    <div class="slide slide--light" data-slide="15">
+    <div class="slide slide--light" data-slide="18">
       <div class="slide-body" style="padding-top: 100px;">
         <div class="slide-subtitle">ROI real — Un nuevo framework</div>
         <h2 class="slide-title" style="margin-bottom: 12px;">Cosecha vs Siembra</h2>
@@ -2972,29 +3185,29 @@
 
 
     <!-- ═══════════════════════════════════════════════════
-       SLIDE 16 — Conclusiones Accionables (bg: CG-2.png)
+       SLIDE 19 — Conclusiones Accionables (bg: CG-2.png)
        ═══════════════════════════════════════════════════ -->
-    <div class="slide slide--dark" data-slide="16">
-      <div class="slide-body" style="padding-top: 90px;">
+    <div class="slide slide--dark" data-slide="19">
+      <div class="slide-body" style="padding-top: 90px; align-items: left;">
         <div class="slide-subtitle">Plan de acción inmediato</div>
         <h2 class="slide-title" style="margin-bottom: 20px;">¿Qué hacemos con esto?</h2>
 
-        <div style="display: flex; gap: 14px; width: 92%; max-width: 1400px;">
+        <div style="display: flex; gap: 25px; width: 100%; max-width: 1680px; margin: 0 auto;">
 
           <!-- 1. Reducir el ruido -->
           <div
             style="flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 28px 22px; display: flex; flex-direction: column; border-top: 3px solid #dc3545;">
             <div
-              style="width: 40px; height: 40px; border-radius: 10px; background: rgba(220,53,69,0.12); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: #dc3545; margin-bottom: 14px;">
+              style="width: 40px; height: 40px; border-radius: 10px; background: rgba(220,53,69,0.12); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; color: #dc3545; margin-bottom: 14px;">
               1</div>
-            <div style="font-size: 21px; font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.2;">Reducir
+            <div style="font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.2;">Reducir
               el ruido</div>
-            <div style="font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.55; flex: 1;">
+            <div style="font-size: 21px; color: rgba(255,255,255,0.5); line-height: 1.55; flex: 1;">
               51% de los leads son descartables. Refinar audiencias, negativizar segmentos y bajar el costo/lead real de
               $270K.
             </div>
             <div
-              style="margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06); font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--ecr-orange);">
+              style="margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06); font-family: 'JetBrains Mono', monospace; font-size: 18px; color: var(--ecr-orange);">
               Meta: costo/lead &lt; $150K en Q2</div>
           </div>
 
@@ -3002,16 +3215,16 @@
           <div
             style="flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 28px 22px; display: flex; flex-direction: column; border-top: 3px solid #27c93f;">
             <div
-              style="width: 40px; height: 40px; border-radius: 10px; background: rgba(39,201,63,0.12); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: #27c93f; margin-bottom: 14px;">
+              style="width: 40px; height: 40px; border-radius: 10px; background: rgba(39,201,63,0.12); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; color: #27c93f; margin-bottom: 14px;">
               2</div>
-            <div style="font-size: 21px; font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.2;">Acelerar
+            <div style="font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.2;">Acelerar
               con valor, no con presión</div>
-            <div style="font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.55; flex: 1;">
+            <div style="font-size: 21px; color: rgba(255,255,255,0.5); line-height: 1.55; flex: 1;">
               129 días de ciclo son una oportunidad de engagement, no de persecución. Cada contacto debe aportar algo:
               un dato, una idea, un caso de éxito. Seguimiento que el cliente agradece, no que tolera.
             </div>
             <div
-              style="margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06); font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--ecr-orange);">
+              style="margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06); font-family: 'JetBrains Mono', monospace; font-size: 18px; color: var(--ecr-orange);">
               Foco: $17.7M en pipeline Ene-Feb 2026</div>
           </div>
 
@@ -3019,16 +3232,16 @@
           <div
             style="flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 28px 22px; display: flex; flex-direction: column; border-top: 3px solid var(--ecr-blue);">
             <div
-              style="width: 40px; height: 40px; border-radius: 10px; background: rgba(26,107,147,0.15); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: var(--ecr-blue); margin-bottom: 14px;">
+              style="width: 40px; height: 40px; border-radius: 10px; background: rgba(26,107,147,0.15); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; color: var(--ecr-blue); margin-bottom: 14px;">
               3</div>
-            <div style="font-size: 21px; font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.2;">Proteger
+            <div style="font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.2;">Proteger
               la siembra</div>
-            <div style="font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.55; flex: 1;">
+            <div style="font-size: 21px; color: rgba(255,255,255,0.5); line-height: 1.55; flex: 1;">
               7 deals en propuesta suman $18M. Priorizar seguimiento comercial para convertir el ROI proyectado de
               +131%.
             </div>
             <div
-              style="margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06); font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--ecr-orange);">
+              style="margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06); font-family: 'JetBrains Mono', monospace; font-size: 18px; color: var(--ecr-orange);">
               Pipeline total: $19.8M</div>
           </div>
 
@@ -3036,16 +3249,16 @@
           <div
             style="flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 28px 22px; display: flex; flex-direction: column; border-top: 3px solid var(--ecr-orange);">
             <div
-              style="width: 40px; height: 40px; border-radius: 10px; background: rgba(232,119,43,0.12); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: var(--ecr-orange); margin-bottom: 14px;">
+              style="width: 40px; height: 40px; border-radius: 10px; background: rgba(232,119,43,0.12); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; color: var(--ecr-orange); margin-bottom: 14px;">
               4</div>
-            <div style="font-size: 21px; font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.2;">Escalar
+            <div style="font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.2;">Escalar
               lo que funciona</div>
-            <div style="font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.55; flex: 1;">
+            <div style="font-size: 21px; color: rgba(255,255,255,0.5); line-height: 1.55; flex: 1;">
               ECR® Capacitación cierra en 28 días. Aumentar inversión en campañas con ciclos cortos y conversión
               probada.
             </div>
             <div
-              style="margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06); font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--ecr-orange);">
+              style="margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.06); font-family: 'JetBrains Mono', monospace; font-size: 18px; color: var(--ecr-orange);">
               Replicar el modelo en otras verticales</div>
           </div>
 
@@ -3058,7 +3271,7 @@
     <!-- ═══════════════════════════════════════════════════
        SLIDE 17 — CIERRE (bg: CG_CP-2.png)
        ═══════════════════════════════════════════════════ -->
-    <div class="slide slide--closing" data-slide="17">
+    <div class="slide slide--closing" data-slide="20">
     </div>
 
 
@@ -3068,7 +3281,16 @@
       <button class="nav-btn" onclick="nextSlide()" title="Siguiente">&#8594;</button>
     </div>
 
-    <div class="slide-counter" id="slideCounter">1 / 9</div>
+    <div class="slide-counter" id="slideCounter" onclick="openGoto()">1 / 9</div>
+
+    <!-- Go-to-slide overlay -->
+    <div class="goto-overlay" id="gotoOverlay" onclick="closeGoto()">
+      <div class="goto-box" onclick="event.stopPropagation()">
+        <label>Ir a slide</label>
+        <input type="number" id="gotoInput" min="1" autocomplete="off" />
+        <div class="goto-hint">Enter para ir &middot; Esc para cerrar</div>
+      </div>
+    </div>
 
   </div>
 
@@ -3110,6 +3332,7 @@
       } else {
         floatingTimer.classList.remove('warning');
       }
+      presenterChannel.postMessage({ type: 'timer', timer: timerRemaining });
     }
 
     function startTimer() {
@@ -3132,12 +3355,16 @@
       }
     }
 
+    // ── Presenter sync ──
+    const presenterChannel = new BroadcastChannel('ecr-presenter');
+
     // ── Slide navigation ──
     function showSlide(index) {
       slides.forEach(s => s.classList.remove('active'));
       slides[index].classList.add('active');
       counter.textContent = `${index + 1} / ${total}`;
       progressBar.style.width = `${((index + 1) / total) * 100}%`;
+      presenterChannel.postMessage({ type: 'slide', slide: index + 1, total, timer: timerRemaining });
 
       const slideNum = index + 1; // 1-based
 
@@ -3162,7 +3389,43 @@
       if (current > 0) { current--; showSlide(current); }
     }
 
+    // ── Go-to-slide ──
+    const gotoOverlay = document.getElementById('gotoOverlay');
+    const gotoInput = document.getElementById('gotoInput');
+
+    function openGoto() {
+      gotoInput.max = total;
+      gotoInput.placeholder = total;
+      gotoOverlay.classList.add('active');
+      gotoInput.value = '';
+      gotoInput.focus();
+    }
+
+    function closeGoto() {
+      gotoOverlay.classList.remove('active');
+    }
+
+    function goToSlide(num) {
+      const idx = Math.max(0, Math.min(total - 1, num - 1));
+      current = idx;
+      showSlide(current);
+      closeGoto();
+    }
+
+    gotoInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const val = parseInt(gotoInput.value);
+        if (!isNaN(val)) goToSlide(val);
+        e.stopPropagation();
+      } else if (e.key === 'Escape') {
+        closeGoto();
+        e.stopPropagation();
+      }
+      e.stopPropagation();
+    });
+
     document.addEventListener('keydown', (e) => {
+      if (gotoOverlay.classList.contains('active')) return;
       if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
         e.preventDefault(); nextSlide();
       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
@@ -3171,6 +3434,8 @@
         current = 0; showSlide(current);
       } else if (e.key === 'End') {
         current = total - 1; showSlide(current);
+      } else if (e.key === 'g' || e.key === 'G') {
+        openGoto();
       }
     });
 
@@ -3229,8 +3494,8 @@
       document.addEventListener('touchend', () => { isDragging = false; });
     })();
 
-    // ── Slide pace timer (2.5 min per slide) ──
-    const PACE_SECONDS = 150; // 2.5 minutes
+    // ── Slide pace timer (2 min per slide) ──
+    const PACE_SECONDS = 120; // 2 minutes
     const PACE_WARN = 30; // show notification at 30s remaining
     let paceRemaining = PACE_SECONDS;
     let paceInterval = null;
@@ -3250,12 +3515,16 @@
       'Cómo y dónde impactaremos',            // 8
       'Terminal — Actividad finalizada',      // 9
       'Sitio Web + Brandbook',                // 10
-      'Collage Brandbook',                    // 11
-      'Para qué y por qué hacemos todo esto', // 12
-      'Todo se mide. Todo se optimiza.',      // 13
-      'Línea de Tiempo: Maduración',          // 14
-      'Cosecha vs Siembra',                   // 15
-      'Cierre',                               // 16
+      'Brochure Comercial 2026',              // 11
+      'Marca y Sub-marcas',                   // 12
+      'Generador de Firma Corporativa',       // 13
+      'Dashboard ECR Content',                // 14
+      'Para qué y por qué hacemos todo esto', // 15
+      'Todo se mide. Todo se optimiza.',      // 16
+      'Línea de Tiempo: Maduración',          // 17
+      'Cosecha vs Siembra',                   // 18
+      'Conclusiones Accionables',             // 19
+      'Cierre',                               // 20
     ];
 
     function resetPaceTimer() {

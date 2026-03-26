@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://i0.wp.com/ecrgroup.cl/wp-content/uploads/2023/03/favicon.png?fit=32%2C32&ssl=1">
+  <title>Presenter View — ECR GROUP®</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --ecr-blue: #1a6b93;
+      --ecr-dark: #0c3044;
+      --ecr-orange: #e8772b;
+      --ecr-gray: #7a8a96;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #0d1117;
+      color: #c9d1d9;
+      height: 100vh;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    /* ── Header ── */
+    .header {
+      grid-column: 1 / -1;
+      background: #161b22;
+      border-bottom: 1px solid #30363d;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-title {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ecr-orange);
+    }
+
+    .slide-indicator {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 36px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .slide-name {
+      font-size: 21px;
+      color: var(--ecr-gray);
+      max-width: 400px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .timer-box {
+      text-align: center;
+    }
+
+    .timer-box-label {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--ecr-gray);
+      margin-bottom: 2px;
+    }
+
+    .timer-box-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 29px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .timer-box-value.warning {
+      color: #f85149;
+    }
+
+    .timer-box-value.activity {
+      color: #3fb950;
+    }
+
+    .connection-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #f85149;
+      transition: background 0.3s;
+    }
+
+    .connection-dot.connected {
+      background: #3fb950;
+    }
+
+    /* ── Notes panel (left) ── */
+    .notes-panel {
+      background: #0d1117;
+      border-right: 1px solid #30363d;
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .notes-panel h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--ecr-orange);
+      margin-bottom: 4px;
+    }
+
+    .notes-content {
+      font-size: 22px;
+      line-height: 1.7;
+      color: #e6edf3;
+    }
+
+    .notes-content .say {
+      color: #fff;
+      font-weight: 400;
+    }
+
+    .notes-content .action {
+      color: var(--ecr-orange);
+      font-style: italic;
+      font-size: 20px;
+    }
+
+    .notes-content .highlight {
+      background: rgba(232, 119, 43, 0.15);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--ecr-orange);
+      font-weight: 600;
+    }
+
+    .notes-content .bold {
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .notes-content p {
+      margin-bottom: 12px;
+    }
+
+    /* ── Next slide panel (right) ── */
+    .next-panel {
+      background: #161b22;
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .next-panel h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--ecr-gray);
+      margin-bottom: 4px;
+    }
+
+    .next-slide-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .next-notes-preview {
+      font-size: 18px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .next-notes-preview .action {
+      color: rgba(232, 119, 43, 0.6);
+      font-style: italic;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      grid-column: 1 / -1;
+      background: #161b22;
+      border-top: 1px solid #30363d;
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 4px;
+      background: #30363d;
+      border-radius: 2px;
+      margin: 0 20px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--ecr-orange);
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+
+    .footer-hint {
+      font-size: 16px;
+      color: #484f58;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .slide-pace {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 17px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .pace-ok {
+      background: rgba(63, 185, 80, 0.1);
+      color: #3fb950;
+    }
+
+    .pace-slow {
+      background: rgba(248, 81, 73, 0.1);
+      color: #f85149;
+    }
+
+    .pace-fast {
+      background: rgba(88, 166, 255, 0.1);
+      color: #58a6ff;
+    }
+
+    /* ── Next slide notification ── */
+    .next-notification {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: rgba(248, 81, 73, 0.15);
+      border: 1px solid rgba(248, 81, 73, 0.4);
+      backdrop-filter: blur(12px);
+      color: #f85149;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 18px;
+      font-weight: 600;
+      padding: 12px 28px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s, visibility 0.4s, transform 0.4s;
+      z-index: 100;
+      box-shadow: 0 8px 32px rgba(248, 81, 73, 0.2);
+    }
+
+    .next-notification.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .next-notification .next-arrow {
+      font-size: 22px;
+      animation: bounceRight 1s ease-in-out infinite;
+    }
+
+    @keyframes bounceRight {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(6px); }
+    }
+
+    /* ── Waiting state ── */
+    .waiting {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: #484f58;
+    }
+
+    .waiting-icon {
+      font-size: 48px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 0.3;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .waiting-text {
+      font-size: 23px;
+    }
+
+    .waiting-hint {
+      font-size: 17px;
+      font-family: 'JetBrains Mono', monospace;
+      color: #30363d;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Next slide notification -->
+  <div class="next-notification" id="nextNotification">
+    <span>Avanzar a siguiente slide</span>
+    <span class="next-arrow">&#8594;</span>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <div>
+        <div class="header-title">Presenter View</div>
+        <div style="display: flex; align-items: baseline; gap: 12px;">
+          <span class="slide-indicator" id="slideNum">--</span>
+          <span class="slide-name" id="slideName">Esperando conexión...</span>
+        </div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="timer-box">
+        <div class="timer-box-label">Actividad</div>
+        <div class="timer-box-value activity" id="activityTimer">15:00</div>
+      </div>
+      <div class="timer-box">
+        <div class="timer-box-label">En esta slide</div>
+        <div class="timer-box-value" id="slideTimer">0:00</div>
+      </div>
+      <div class="timer-box">
+        <div class="timer-box-label">Total</div>
+        <div class="timer-box-value" id="totalTimer">0:00</div>
+      </div>
+      <div class="connection-dot" id="connDot" title="Desconectado"></div>
+    </div>
+  </div>
+
+  <!-- Waiting state -->
+  <div class="waiting" id="waitingState">
+    <div class="waiting-icon">&#9679;</div>
+    <div class="waiting-text">Esperando presentación...</div>
+    <div class="waiting-hint">Abre presentacion.html en otra pestaña o pantalla</div>
+  </div>
+
+  <!-- Notes panel -->
+  <div class="notes-panel" id="notesPanel" style="display: none;">
+    <h3>Notas — Slide actual</h3>
+    <div class="notes-content" id="notesContent"></div>
+  </div>
+
+  <!-- Next slide panel -->
+  <div class="next-panel" id="nextPanel" style="display: none;">
+    <h3>Siguiente slide</h3>
+    <div class="next-slide-title" id="nextTitle"></div>
+    <div class="next-notes-preview" id="nextNotes"></div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-hint" id="footerSlideCount">-- / --</div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+    </div>
+    <div class="slide-pace pace-ok" id="slidePace">--</div>
+  </div>
+
+  <script>
+    // ── Slide notes (mapped to new 20-slide numbering) ──
+    const slideNotes = {
+      1: {
+        title: 'Portada',
+        notes: `<p class="action">[Solo la imagen. Dejar que la sala se acomode.]</p>
+                <p class="say">"Buenas tardes a todos. Gracias por estar aquí."</p>`
+      },
+      2: {
+        title: 'Terminal + Timer 15:00',
+        notes: `<p class="say">"Antes de empezar con la presentación formal, quiero hacer algo distinto. Vamos a hacer una actividad: ¿quién quiere preguntarle algo al CRM? Tienen 15 minutos. Pregunten lo que quieran — un cliente, un deal, una campaña. Lo buscamos en vivo."</p>
+                <p class="action">[Dejar que la actividad fluya. El timer corre. Avanzar cuando sea oportuno.]</p>`
+      },
+      3: {
+        title: 'El marketing ya no es solo marketing',
+        notes: `<p class="say">"Hace solo 3 años, jamás hubiese pensado que para hacer marketing debiera manejar un terminal. Y sin embargo, aquí estamos. Miren ese diff: pasamos de Excel, PowerPoint e intuición... a CRM con inteligencia artificial, automatización, APIs y datos en tiempo real.</p>
+                <p class="say">Esto no es una tendencia. Es la realidad. Hay más de 14 mil herramientas MarTech en el mercado. El 72% de las empresas B2B ya usan IA en sus procesos comerciales. Y las empresas que automatizan inteligentemente convierten 3 veces más.</p>
+                <p class="say"><span class="bold">Marketing es un proceso dinámico, constante, que requiere mejoras permanentes.</span> No existe un estado final — existe un proceso de mejora continua."</p>
+                <p class="highlight">Se acuerdan de la frase del año anterior: Está todo listo, nada terminado. En ese mood vivimos siempre!</p>`
+      },
+      4: {
+        title: 'Adaptarse o ser reemplazado',
+        notes: `<p class="say">"Pero esto no es solo sobre nosotros. Miren lo que está pasando en la industria del outsourcing.</p>
+                <p class="action">[Señalar las 3 cards]</p>
+                <p class="say">Antes, outsourcing era sinónimo de reducción de costos. Competencia por precio. Servicios commoditizados. Hoy, los clientes exigen valor agregado — no solo mano de obra. La IA ya automatiza lo repetitivo. Y la regulación — Ley Karin, sostenibilidad — eleva el estándar. Del BPO al BTT</p>
+                <p class="say">¿Y el futuro? Outsourcing inteligente: servicios potenciados con IA, diferenciación por marca y datos, sostenibilidad como requisito — ya no como diferenciador.</p>
+                <p class="action">[Señalar la parte inferior, la respuesta de ECR]</p>
+                <p class="say">Y así respondimos. De presencia de marca básica antes del 2023, pasamos por una transición con el ecosistema MKC, CRM y reportería... hasta donde estamos hoy: foco comercial completo. Marketing digital, motor comercial, posicionamiento de marca, investigación y sostenibilidad."</p>`
+      },
+      5: {
+        title: 'NPS: De -26% a +50%',
+        notes: `<p class="say">"¿Y cómo sabemos que esto funciona? Porque medimos. Miren esta curva.</p>
+                <p class="say">En 2012 teníamos un NPS de -26%. Nos percibían como un proveedor genérico. Un mal necesario. Hoy estamos en +50%. Zona de excelencia. Son 76 puntos ganados en 13 años.</p>
+                <p class="action">[Señalar las 4 eras del gráfico]</p>
+                <p class="say">Del 2012 al 2016: zona negativa. Del 2017 al 2019: modelo relacional — NPS de +5% a +31%. Pandemia 2020-2021: caída de 23pp, pero la base relacional evitó un colapso. 2022-2025: zona de excelencia, +42 puntos en 4 años. Meta 2027: +55%.</p>
+                <p class="action">[Señalar la zona de excelencia con glow]</p>
+                <p class="say">Pero quiero ser honesto: ese +50% es un promedio con compañía. En la sesión con Fernando quedó claro: <span class="bold">debemos hacer los dobles clic por negocio.</span></p>
+                <p class="say">Fernando nos dejó dos desafíos: <span class="bold">incorporar a las áreas de apoyo en el proceso de planes comerciales</span> y <span class="bold">hacernos cargo de la percepción de valor tecnológico.</span></p>
+                <p class="say">Comparado con la industria: el promedio es 32%. Estamos 18 puntos por encima. Pero eso no nos puede conformar."</p>`
+      },
+      6: {
+        title: 'La Paradoja del Outsourcing',
+        notes: `<p class="say">"¿Y por qué es tan difícil? Porque el outsourcing opera en 3 dimensiones simultáneas. Resolver solo una genera un 'operador correcto' pero nunca un 'socio estratégico'.</p>
+                <p class="action">[Señalar cada columna]</p>
+                <p class="say">Lo funcional — Continuidad. Lo mínimo, pero innegociable.</p>
+                <p class="highlight">No logran transformar a promotores, pero si pueden bajar la percepción.</p>
+                <p class="say">Lo emocional — Incertidumbre. 'Lo que genera tensión no es el error, sino sentir que se pierde el control.'</p>
+                <p class="highlight">Mueven la aguja de manera uniforme.</p>
+                <p class="say">Y lo simbólico — Confianza. Liderazgo, expertise, anticipación, co-creación.</p>
+                <p class="highlight">Son los que transforman en promoters y otorgan sostenibilidad a la relación.</p>
+                <p class="action">[Señalar el hallazgo]</p>
+                <p class="say"><span class="bold">La diferenciación se juega en lo emocional y lo simbólico.</span> Lo funcional es condición necesaria, pero no suficiente."</p>`
+      },
+      7: {
+        title: 'Objetivos',
+        notes: `<p class="say">"Con ese contexto claro, estos son nuestros objetivos. Dos grandes ejes: tracción comercial y posicionamiento de marca.</p>
+                <p class="action">[Señalar el terminal]</p>
+                <p class="say">Branding conecta con contexto. CRM convierte con contacto. Contenidos acciona con servicio. Sostenibilidad profundiza con transformación. No son acciones sueltas — es un sistema."</p>
+                <p class="say">Ver el Big Picture con mirada integral nos permite elaborar conclusiones más robustas y construir acciones con mayor impacto!</p>`
+      },
+      8: {
+        title: '¿Cómo y dónde impactamos?',
+        notes: `<p class="say">"Y esto se traduce en acciones concretas y de gran impacto. Cuatro pilares de gestión — Branding, Desarrollo de Contenidos, Desarrollo Comercial y CRM, y Sostenibilidad — cruzados con ámbitos específicos.</p>
+                <p class="say">Desde desarrollo de marca hasta certificaciones. Desde el relato ECR GROUP hasta la administración del CRM. Desde la página web hasta la mejora de procesos.</p>
+                <p class="say">Cada celda de esta tabla es un proyecto, una iniciativa, una acción medible."</p>`
+      },
+      9: {
+        title: 'Terminal — Actividad finalizada',
+        notes: `<p class="action">[El timer marca 00:00]</p>
+                <p class="say">"Y el tiempo se acabó. ¿Vieron lo que acaba de pasar? Durante los últimos 15 minutos, mientras hablábamos de estrategia, el CRM seguía corriendo. Los datos seguían entrando. Las campañas seguían generando leads.</p>
+                <p class="say">Esto no se detiene. Y eso es exactamente el punto."</p>
+                <p class="say">Acá les muestro el análisis detallado en formato .MD y .HTML. Esto, se puede hacer de manera constante y programada hoy en día.</p>`
+      },
+      10: {
+        title: 'Sitio Web + Brandbook',
+        notes: `<p class="say">"Y parte de los grandes cambios que se vienen ya están listos. Sitio web nuevo — no uno, tres: ecrgroup.cl, ecrsalud.cl, ecrcapacitacion.cl. Ya están live en stage.</p>
+                <p class="action">[Si hay conexión, hacer clic en uno]</p>
+                <p class="say">Y el Brandbook 2026 con todos los activos de marca: presentación comercial, brochure, fondos de pantalla, portada de LinkedIn, formato de hoja carta, fondo para Teams y la tipografía corporativa. Todo listo para descargar."</p>
+                <p class="say">Además, construimos dos aplicaciones: pie de firma y ECR Content. Una herramienta de IA Generativa que replica la voz de ECR sin errores.</p>
+                <p class="highlight">No solo tenemos relato, podemos replicarlo rápidamente y sin que se vea común y genérico.</p>
+                <p class="say">Hoy, existe mucho AI SLOP y no queremos ser de esas empresas.</p>`
+      },
+      11: {
+        title: 'Brochure Comercial 2026',
+        notes: `<p class="say">"Acá pueden ver algunas de las piezas. Esto es el Brandbook en acción — identidad consistente, profesional, lista para usar."</p>
+                <p class="action">[Dejar que la imagen hable. Pausa breve antes de avanzar.]</p>`
+      },
+      12: {
+        title: 'Marca y Sub-marcas',
+        notes: `<p class="say">"Nuestra identidad visual: el logo ECR GROUP con su zona de protección, y las sub-marcas — Flow Outsourcing Flexible y Reclutamiento 360°."</p>
+                <p class="action">[Slide visual. Transición rápida.]</p>`
+      },
+      13: {
+        title: 'Generador de Firma Corporativa',
+        notes: `<p class="say">"Esta es una de las herramientas que construimos: el generador de firma corporativa. Cada uno puede crear su firma estandarizada para Outlook en segundos."</p>
+                <p class="action">[Demo interactiva: completar datos y mostrar cómo se copia la firma.]</p>`
+      },
+      14: {
+        title: 'Dashboard ECR Content',
+        notes: `<p class="say">"Y esta es ECR Content — nuestra herramienta de IA Generativa que replica la voz de ECR."</p>
+                <p class="action">[Clic para abrir en nueva pestaña si se quiere hacer demo.]</p>`
+      },
+      15: {
+        title: '¿Para qué y por qué hacemos todo esto?',
+        notes: `<p class="action">[Pausa. Dejar que la pregunta se sienta.]</p>
+                <p class="say">"Esta es la pregunta que importa. ¿Para qué todo esto? ¿Para qué el CRM, las campañas, los dashboards, el terminal, los datos?"</p>
+                <p class="action">[Pausa breve]</p>`
+      },
+      16: {
+        title: 'Todo se mide. Todo se optimiza.',
+        notes: `<p class="say">"Para esto. Para que cada peso invertido se pueda rastrear. Desde Google Ads hasta el CRM, pasando por el sitio web y los analytics. Todo conectado.</p>
+                <p class="action">[Señalar el flujo: Google Ads → Sitio Web → CRM → Analytics → Optimización]</p>
+                <p class="action">[Señalar el terminal con las métricas de tracking]</p>
+                <p class="say">Nuestro sistema de tracking tiene cobertura del 73% en GCLID — 141 de 193 deals. El 70% tiene Ad Campaign Name identificado. El 27% sin tracking está en investigación.</p>
+                <p class="say"><span class="bold">No es un deseo. No es un plan. Son datos reales, en tiempo real. Esto ya está ocurriendo.</span>"</p>`
+      },
+      17: {
+        title: 'Línea de Tiempo: Maduración de Leads',
+        notes: `<p class="say">"Miren este gráfico. Cada fila es una cohorte — un grupo de clicks que entraron el mismo mes.</p>
+                <p class="action">[Señalar Ago 2025]</p>
+                <p class="say">Los clicks de agosto 2025 generaron 18 deals. 3 ya cerraron por 4.4 millones. Ciclo de 219 a 304 días.</p>
+                <p class="action">[Señalar Nov 2025]</p>
+                <p class="say">Noviembre 2025: 10 deals, 3 cerrados por 660 mil. Ciclo de 63 a 93 días. Mucho más rápido.</p>
+                <p class="action">[Señalar Ene-Feb-Mar 2026]</p>
+                <p class="say">Clicks de este trimestre — 12 deals en pipeline por casi 20 millones. Enero $9.3M, febrero $8.4M y 1 cierre de $1.1M. El ROI real lo vamos a ver en julio.</p>
+                <p class="action">[Señalar los KPIs]</p>
+                <p class="say">51.2% de leads son "ruido". Costo real por lead calificado: $270K. Ciclo promedio: 129 días.</p>
+                <p class="action">[Señalar los 4 escenarios de ROI]</p>
+                <p class="say">Solo cierres: -87.7%. 30% pipeline: -26.4%. 50% pipeline: +20.8%. 100%: +121.8%. Es como juzgar la cosecha de este año por las semillas del año pasado.</p>
+                <p class="say"><span class="bold">Las decisiones se toman con datos.</span>"</p>`
+      },
+      18: {
+        title: 'Cosecha vs Siembra',
+        notes: `<p class="say">"Y por eso propusimos un nuevo framework: Cosecha versus Siembra.</p>
+                <p class="action">[Señalar Cosecha]</p>
+                <p class="say">Cosecha: lo que se cobró. 6 deals, 2.2 millones. La mejor campaña: ECR® Capacitación. Ciclo más rápido: 28 días.</p>
+                <p class="action">[Señalar Siembra]</p>
+                <p class="say">Siembra: 19.8 millones en pipeline. 12 deals activos. 7 en propuesta por 18 millones. Si cierra el 50%, ROI es +131%.</p>
+                <p class="say"><span class="bold">Todos estos datos son reales y en tiempo real. Tenemos mucho que mejorar, pero sabemos exactamente dónde mirar.</span>"</p>`
+      },
+      19: {
+        title: '¿Qué hacemos con esto?',
+        notes: `<p class="say">"Entonces, ¿qué hacemos con todo esto? Cuatro acciones concretas.</p>
+                <p class="action">[Señalar card 1]</p>
+                <p class="say"><span class="bold">Uno: Reducir el ruido.</span> 51% de leads descartables. Meta: costo/lead &lt; $150K en Q2.</p>
+                <p class="action">[Señalar card 2]</p>
+                <p class="say"><span class="bold">Dos: Acelerar con valor, no con presión.</span> 129 días de ciclo = oportunidad de engagement. Foco: $17.7M en pipeline Ene-Feb 2026.</p>
+                <p class="action">[Señalar card 3]</p>
+                <p class="say"><span class="bold">Tres: Proteger la siembra.</span> 7 deals en propuesta = $18M. Pipeline total: $19.8M.</p>
+                <p class="action">[Señalar card 4]</p>
+                <p class="say"><span class="bold">Cuatro: Escalar lo que funciona.</span> ECR® Capacitación cierra en 28 días. Replicar en otras verticales.</p>
+                <p class="say">Todo lo que les he mostrado hoy — <span class="bold">no son deseos. Son medios.</span> Medios para impulsar la gestión comercial.</p>
+                <p class="say">Marketing no es un gasto. Es la inversión que genera negocios. Y ahora tenemos los datos para demostrarlo.</p>
+                <p class="say">Todo, absolutamente todo, lo que vieron aquí hoy se está usando.</p>
+                <p class="say">Gracias."</p>`
+      },
+      20: {
+        title: 'Cierre',
+        notes: `<p class="action">[Slide de cierre. Solo la imagen.]</p>`
+      }
+    };
+
+    // ── Recommended pace (seconds per slide) ──
+    const slidePace = {
+      1: 45, 2: 1350, 3: 180, 4: 225, 5: 270, 6: 270, 7: 135, 8: 135,
+      9: 90, 10: 180, 11: 45, 12: 45, 13: 90, 14: 45,
+      15: 45, 16: 180, 17: 270, 18: 135, 19: 270, 20: 22
+    };
+
+    // ── State ──
+    let currentSlide = 0;
+    let totalSlides = 20;
+    let slideStartTime = Date.now();
+    let presentationStartTime = null;
+    let totalElapsed = 0;
+    let totalTimerInterval = null;
+    let slideTimerInterval = null;
+    let connected = false;
+
+    const slideNumEl = document.getElementById('slideNum');
+    const slideNameEl = document.getElementById('slideName');
+    const activityTimerEl = document.getElementById('activityTimer');
+    const slideTimerEl = document.getElementById('slideTimer');
+    const totalTimerEl = document.getElementById('totalTimer');
+    const connDot = document.getElementById('connDot');
+    const notesPanel = document.getElementById('notesPanel');
+    const notesContent = document.getElementById('notesContent');
+    const nextPanel = document.getElementById('nextPanel');
+    const nextTitle = document.getElementById('nextTitle');
+    const nextNotes = document.getElementById('nextNotes');
+    const waitingState = document.getElementById('waitingState');
+    const footerSlideCount = document.getElementById('footerSlideCount');
+    const progressFill = document.getElementById('progressFill');
+    const slidePaceEl = document.getElementById('slidePace');
+    const nextNotification = document.getElementById('nextNotification');
+
+    function formatTime(s) {
+      const m = Math.floor(Math.abs(s) / 60);
+      const sec = Math.abs(s) % 60;
+      return `${m}:${String(sec).padStart(2, '0')}`;
+    }
+
+    function updateSlide(slideNum, total) {
+      if (!connected) {
+        connected = true;
+        connDot.classList.add('connected');
+        connDot.title = 'Conectado';
+        waitingState.style.display = 'none';
+        notesPanel.style.display = '';
+        nextPanel.style.display = '';
+      }
+
+      if (!presentationStartTime) {
+        presentationStartTime = Date.now();
+        totalTimerInterval = setInterval(() => {
+          const elapsed = Math.floor((Date.now() - presentationStartTime) / 1000);
+          totalTimerEl.textContent = formatTime(elapsed);
+        }, 1000);
+      }
+
+      if (slideNum !== currentSlide) {
+        currentSlide = slideNum;
+        totalSlides = total || 20;
+        slideStartTime = Date.now();
+
+        // Update slide timer
+        if (slideTimerInterval) clearInterval(slideTimerInterval);
+        slideTimerInterval = setInterval(() => {
+          const elapsed = Math.floor((Date.now() - slideStartTime) / 1000);
+          slideTimerEl.textContent = formatTime(elapsed);
+
+          // Pace indicator + next slide notification
+          const recommended = slidePace[currentSlide] || 60;
+          if (elapsed <= recommended) {
+            slidePaceEl.className = 'slide-pace pace-ok';
+            slidePaceEl.textContent = `${formatTime(recommended - elapsed)} restante`;
+            nextNotification.classList.remove('visible');
+          } else {
+            slidePaceEl.className = 'slide-pace pace-slow';
+            slidePaceEl.textContent = `+${formatTime(elapsed - recommended)} extra`;
+            nextNotification.classList.add('visible');
+          }
+        }, 1000);
+
+        // Update header
+        slideNumEl.textContent = `${slideNum} / ${totalSlides}`;
+        const data = slideNotes[slideNum];
+        slideNameEl.textContent = data ? data.title : `Slide ${slideNum}`;
+
+        // Update notes
+        notesContent.innerHTML = data ? data.notes : '<p class="action">[Sin notas]</p>';
+
+        // Update next slide preview
+        const nextNum = slideNum + 1;
+        const nextData = slideNotes[nextNum];
+        if (nextData) {
+          nextTitle.textContent = `${nextNum}. ${nextData.title}`;
+          nextNotes.innerHTML = nextData.notes;
+        } else {
+          nextTitle.textContent = 'Fin de la presentación';
+          nextNotes.innerHTML = '';
+        }
+
+        // Footer
+        footerSlideCount.textContent = `${slideNum} / ${totalSlides}`;
+        progressFill.style.width = `${(slideNum / totalSlides) * 100}%`;
+
+        // Reset slide timer display and hide notification
+        slideTimerEl.textContent = '0:00';
+        nextNotification.classList.remove('visible');
+        const rec = slidePace[currentSlide] || 60;
+        slidePaceEl.className = 'slide-pace pace-ok';
+        slidePaceEl.textContent = `${formatTime(rec)} recomendado`;
+      }
+    }
+
+    // ── BroadcastChannel listener ──
+    const channel = new BroadcastChannel('ecr-presenter');
+    channel.onmessage = (e) => {
+      const { type, slide, total, timer } = e.data;
+      if (type === 'slide') {
+        updateSlide(slide, total);
+      }
+      if (type === 'timer' || type === 'slide') {
+        if (timer !== undefined) {
+          const m = Math.floor(timer / 60);
+          const s = timer % 60;
+          activityTimerEl.textContent = `${m}:${String(s).padStart(2, '0')}`;
+          if (timer <= 120 && timer > 0) {
+            activityTimerEl.classList.add('warning');
+            activityTimerEl.classList.remove('activity');
+          } else if (timer <= 0) {
+            activityTimerEl.textContent = '0:00';
+            activityTimerEl.classList.add('warning');
+          } else {
+            activityTimerEl.classList.remove('warning');
+            activityTimerEl.classList.add('activity');
+          }
+        }
+      }
+    };
+  </script>
+</body>
+
+</html>
