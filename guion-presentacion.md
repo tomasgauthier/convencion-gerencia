@@ -1,9 +1,11 @@
 # Guión de Presentación — Convención de Gerentes 2026
+
 ## Planificación Estratégica: Marketing y Sostenibilidad
 
 ---
 
 ## SLIDE 1 — Portada
+
 *[Solo la imagen. Dejar que la sala se acomode.]*
 
 **Decir:** "Buenas tardes a todos. Gracias por estar aquí."
@@ -11,6 +13,7 @@
 ---
 
 ## SLIDE 2 — Terminal + Timer 15:00
+
 **Decir:** "Antes de empezar con la presentación formal, quiero hacer algo distinto. Vamos a hacer una actividad: ¿quién quiere preguntarle algo al CRM? Tienen 15 minutos. Pregunten lo que quieran — un cliente, un deal, una campaña. Lo buscamos en vivo."
 
 *[Dejar que la actividad fluya. El timer corre. Avanzar cuando sea oportuno.]*
@@ -18,6 +21,7 @@
 ---
 
 ## SLIDE 3 — El marketing ya no es solo marketing
+
 **Decir:** "Hace solo 3 años, jamás hubiese pensado que para hacer marketing debiera manejar un terminal. Y sin embargo, aquí estamos. Miren ese diff: pasamos de Excel, PowerPoint e intuición... a CRM con inteligencia artificial, automatización, APIs y datos en tiempo real.
 
 Esto no es una tendencia. Es la realidad. Hay más de 14 mil herramientas MarTech en el mercado. El 72% de las empresas B2B ya usan IA en sus procesos comerciales. Y las empresas que automatizan inteligentemente convierten 3 veces más.
@@ -27,6 +31,7 @@ Marketing dejó de ser el área que hace logos y brochures. **Marketing es un pr
 ---
 
 ## SLIDE 4 — Adaptarse o ser reemplazado
+
 **Decir:** "Pero esto no es solo sobre nosotros. Miren lo que está pasando en la industria del outsourcing.
 
 *[Señalar las 3 cards]*
@@ -42,6 +47,7 @@ Y así respondimos. De presencia de marca básica antes del 2023, pasamos por un
 ---
 
 ## SLIDE 5 — NPS: De -26% a +50%
+
 **Decir:** "¿Y cómo sabemos que esto funciona? Porque medimos. Miren esta curva.
 
 En 2012 teníamos un NPS de -26%. Nos percibían como un proveedor genérico. Un mal necesario. Hoy estamos en +50%. Zona de excelencia. Son 76 puntos ganados en 13 años.
@@ -61,6 +67,7 @@ Comparado con la industria: el promedio es 32%. Estamos 18 puntos por encima. Pe
 ---
 
 ## SLIDE 6 — La Paradoja del Outsourcing
+
 *Subtítulo: RUBIK Deep Thinking — 15 entrevistas en profundidad*
 
 **Decir:** "¿Y por qué es tan difícil? Porque el outsourcing -los servicios en general- opera en 3 dimensiones simultáneas. Resolver solo una genera un 'operador correcto' pero nunca un 'socio estratégico'.
@@ -80,17 +87,19 @@ El hallazgo clave del estudio RUBIK Deep Thinking: **la diferenciación se juega
 ---
 
 ## SLIDE 7 — Objetivos
+
 **Decir:** "Con ese contexto claro, estos son nuestros objetivos. Dos grandes ejes: tracción comercial — verticales, servicios, lead generation, gestión comercial — y posicionamiento de marca — clientes actuales, mercado, sostenibilidad.
 
 *[Señalar el terminal]*
 
 Y miren cómo se alinean los pilares con los objetivos y los focos. Branding conecta con contexto. CRM convierte con contacto. Contenidos acciona con servicio. Sostenibilidad profundiza con transformación. No son acciones sueltas — es un sistema."
 
-Ver el Big Picture con mirada integral nos permite elaborar conclusiones más robutas y construir acciones con mayor impacto! 
+Ver el Big Picture con mirada integral nos permite elaborar conclusiones más robutas y construir acciones con mayor impacto!
 
 ---
 
 ## SLIDE 8 — ¿Cómo y dónde impactamos?
+
 **Decir:** "Y esto se traduce en acciones concretas y de gran impacto. Cuatro pilares de gestión — Branding, Desarrollo de Contenidos, Desarrollo Comercial y CRM, y Sostenibilidad — cruzados con ámbitos específicos.
 
 Desde desarrollo de marca hasta certificaciones. Desde el relato ECR GROUP hasta la administración del CRM. Desde la página web hasta la mejora de procesos.
@@ -100,6 +109,7 @@ Cada celda de esta tabla es un proyecto, una iniciativa, una acción medible."
 ---
 
 ## SLIDE 9 — Terminal + Timer 00:00
+
 *[El timer marca 00:00]*
 
 **Decir:** "Y el tiempo se acabó. ¿Vieron lo que acaba de pasar? Durante los últimos 15 minutos, mientras hablábamos de estrategia, el CRM seguía corriendo. Los datos seguían entrando. Las campañas seguían generando leads.
@@ -111,6 +121,7 @@ Acá les muestro el análisis detallado en formato .MD y .HTML. Esto, se puede h
 ---
 
 ## SLIDE 10 — Brandbook + Sitio Web
+
 **Decir:** "Y parte de los grandes cambios que se vienen ya están listos. Sitio web nuevo — no uno, tres: ecrgroup.cl, ecrsalud.cl, ecrcapacitacion.cl. Ya están live en stage.
 
 *[Si hay conexión, hacer clic en uno]*
@@ -124,6 +135,7 @@ Hoy, existe mucho AI SLOP y no queremos ser de esas empresas.
 ---
 
 ## SLIDE 11 — Collage Brandbook
+
 *[Slide visual: grid 2x2 con láminas del Brandbook 2026]*
 
 **Decir:** "Acá pueden ver algunas de las piezas. Esto es el Brandbook en acción — identidad consistente, profesional, lista para usar."
@@ -132,16 +144,30 @@ Hoy, existe mucho AI SLOP y no queremos ser de esas empresas.
 
 ---
 
-## SLIDE 12 — ¿Para qué y por qué hacemos todo esto?
-*[Pausa. Dejar que la pregunta se sienta.]*
+## SLIDE 12 — Collage Brandbook
 
-**Decir:** "Esta es la pregunta que importa. ¿Para qué todo esto? ¿Para qué el CRM, las campañas, los dashboards, el terminal, los datos?"
+*[Slide visual: grid 2x2 con láminas del Brandbook 2026]*
 
-*[Pausa breve]*
+**Decir:** "Acá pueden ver algunas de las piezas. Esto es el Brandbook en acción — identidad consistente, profesional, lista para usar."
+
+*[Dejar que la imagen hable. Pausa breve antes de avanzar.]*
 
 ---
 
-## SLIDE 13 — Todo se mide. Todo se optimiza.
+## SLIDE 13 — Generador de Firma ECR GROUP®
+
+---
+
+## SLIDE 14 — ECR® Content
+
+---
+
+## SLIDE 15 — ECR® Content
+
+---
+
+## SLIDE 16 — Todo se mide. Todo se optimiza
+
 *Subtítulo: Ecosistema de medición*
 
 **Decir:** "Para esto. Para que cada peso invertido se pueda rastrear. Desde Google Ads hasta el CRM, pasando por el sitio web y los analytics. Todo conectado.
@@ -154,7 +180,8 @@ Nuestro sistema de tracking tiene cobertura del 73% en GCLID — 141 de 193 deal
 
 ---
 
-## SLIDE 14 — Línea de Tiempo: Maduración de Leads
+## SLIDE 17 — Línea de Tiempo: Maduración de Leads
+
 *Subtítulo: Click → Cierre por Cohorte*
 
 **Decir:** "Miren este gráfico. Cada fila es una cohorte — un grupo de clicks que entraron el mismo mes.
@@ -183,7 +210,8 @@ Si medimos solo con cierres — da -87.7%. Con 30% del pipeline: -26.4%. Con 50%
 
 ---
 
-## SLIDE 15 — Cosecha vs Siembra
+## SLIDE 18 — Cosecha vs Siembra
+
 *Subtítulo: ROI real — Un nuevo framework*
 
 **Decir:** "Y por eso propusimos un nuevo framework: Cosecha versus Siembra.
@@ -200,7 +228,8 @@ Siembra: lo que generó la inversión de este trimestre. 19.8 millones en pipeli
 
 ---
 
-## SLIDE 16 — ¿Qué hacemos con esto?
+## SLIDE 19 — ¿Qué hacemos con esto?
+
 *Subtítulo: Plan de acción inmediato*
 
 **Decir:** "Entonces, ¿qué hacemos con todo esto? Cuatro acciones concretas.
@@ -221,6 +250,10 @@ Siembra: lo que generó la inversión de este trimestre. 19.8 millones en pipeli
 
 **Cuatro: Escalar lo que funciona.** ECR® Capacitación cierra en 28 días. Aumentar inversión en campañas con ciclos cortos y conversión probada. Replicar el modelo en otras verticales.
 
+---
+
+## SLIDE 20 - Terminal
+
 Todo lo que les he mostrado hoy — el CRM, las campañas, los dashboards, el NPS, los sitios web, el brandbook — **no son deseos. Son medios.** Medios para impulsar la gestión comercial y la tracción comercial.
 
 Marketing no es un gasto. Es la inversión que genera negocios. Y ahora tenemos los datos para demostrarlo.
@@ -231,7 +264,8 @@ Gracias."
 
 ---
 
-## SLIDE 17 — Cierre
+## SLIDE 21 — Cierre
+
 *[Slide de cierre. Solo la imagen.]*
 
 ## Notas para el presentador

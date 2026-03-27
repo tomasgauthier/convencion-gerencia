@@ -303,8 +303,15 @@
     }
 
     @keyframes bounceRight {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(6px); }
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      50% {
+        transform: translateX(6px);
+      }
     }
 
     /* ── Waiting state ── */
@@ -562,13 +569,16 @@
                 <p class="action">[Señalar card 3]</p>
                 <p class="say"><span class="bold">Tres: Proteger la siembra.</span> 7 deals en propuesta = $18M. Pipeline total: $19.8M.</p>
                 <p class="action">[Señalar card 4]</p>
-                <p class="say"><span class="bold">Cuatro: Escalar lo que funciona.</span> ECR® Capacitación cierra en 28 días. Replicar en otras verticales.</p>
-                <p class="say">Todo lo que les he mostrado hoy — <span class="bold">no son deseos. Son medios.</span> Medios para impulsar la gestión comercial.</p>
+                <p class="say"><span class="bold">Cuatro: Escalar lo que funciona.</span> ECR® Capacitación cierra en 28 días. Replicar en otras verticales.</p>`
+      },
+      20: {
+        title: 'Terminal — Fin de la sesión',
+        notes: `<p class="say">Todo lo que les he mostrado hoy — el CRM, las campañas, los dashboards, el NPS, los sitios web, el brandbook — <span class="bold">no son deseos. Son medios.</span> Medios funcionando hoy, para impulsar la gestión comercial y la tracción comercial.</p>
                 <p class="say">Marketing no es un gasto. Es la inversión que genera negocios. Y ahora tenemos los datos para demostrarlo.</p>
                 <p class="say">Todo, absolutamente todo, lo que vieron aquí hoy se está usando.</p>
                 <p class="say">Gracias."</p>`
       },
-      20: {
+      21: {
         title: 'Cierre',
         notes: `<p class="action">[Slide de cierre. Solo la imagen.]</p>`
       }
@@ -578,12 +588,12 @@
     const slidePace = {
       1: 45, 2: 1350, 3: 180, 4: 225, 5: 270, 6: 270, 7: 135, 8: 135,
       9: 90, 10: 180, 11: 45, 12: 45, 13: 90, 14: 45,
-      15: 45, 16: 180, 17: 270, 18: 135, 19: 270, 20: 22
+      15: 45, 16: 180, 17: 270, 18: 135, 19: 270, 20: 90, 21: 22
     };
 
     // ── State ──
     let currentSlide = 0;
-    let totalSlides = 20;
+    let totalSlides = 21;
     let slideStartTime = Date.now();
     let presentationStartTime = null;
     let totalElapsed = 0;
@@ -634,7 +644,7 @@
 
       if (slideNum !== currentSlide) {
         currentSlide = slideNum;
-        totalSlides = total || 20;
+        totalSlides = total || 21;
         slideStartTime = Date.now();
 
         // Update slide timer

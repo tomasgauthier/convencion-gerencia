@@ -248,6 +248,28 @@
       }
     }
 
+    @keyframes terminalGlow {
+      0% {
+        box-shadow: 0 0 40px rgba(232, 119, 43, 0.35), 0 0 80px rgba(232, 119, 43, 0.15), 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(232, 119, 43, 0.5);
+      }
+
+      100% {
+        box-shadow: 0 0 60px rgba(232, 119, 43, 0.5), 0 0 120px rgba(232, 119, 43, 0.25), 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(232, 119, 43, 0.7);
+      }
+    }
+
+    /* ══════════════════════════════════════════
+       CONFETTI
+       ══════════════════════════════════════════ */
+    #confettiCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
     /* ══════════════════════════════════════════
        TIMER (inline en slides 2 y 5)
        ══════════════════════════════════════════ */
@@ -1931,61 +1953,6 @@
       z-index: 100;
       transition: width 0.4s ease;
     }
-
-    /* ── Slide pace notification ── */
-    .pace-notify {
-      position: fixed;
-      bottom: -80px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 200;
-      background: rgba(232, 119, 43, 0.95);
-      color: #fff;
-      padding: 12px 28px;
-      border-radius: 10px 10px 0 0;
-      font-family: 'Inter', sans-serif;
-      font-size: 18px;
-      font-weight: 600;
-      text-align: center;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
-      transition: bottom 0.4s ease;
-      max-width: 700px;
-    }
-
-    .pace-notify.visible {
-      bottom: 0;
-    }
-
-    .pace-notify.urgent {
-      background: rgba(220, 53, 69, 0.95);
-      animation: pace-pulse 1s ease-in-out infinite;
-    }
-
-    @keyframes pace-pulse {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0.7;
-      }
-    }
-
-    .pace-notify .pace-time {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 22px;
-      font-weight: 700;
-    }
-
-    .pace-notify .pace-next {
-      font-size: 15px;
-      font-weight: 400;
-      opacity: 0.85;
-      margin-top: 4px;
-    }
   </style>
 </head>
 
@@ -1993,11 +1960,6 @@
 
   <div class="progress-bar" id="progressBar"></div>
 
-  <!-- Slide pace notification -->
-  <div class="pace-notify" id="paceNotify">
-    <div><span class="pace-time" id="paceTime">0:30</span> restantes en esta slide</div>
-    <div class="pace-next" id="paceNext">Siguiente: ...</div>
-  </div>
 
   <!-- ══════════════════════════════════════════
      FLOATING MINI-TIMER (visible en slides 3 y 4)
@@ -2605,10 +2567,12 @@
               <div style="color: #9ece6a; font-size: 24px;"> ✓ <a href="https://ecrgroup.cl" target="_blank"
                   style="color: #7aa2f7; text-decoration: underline; text-underline-offset: 3px;">ecrgroup.cl</a> <span
                   style="color: #565f89;">── ECR® GROUP</span></div>
-              <div style="color: #9ece6a; font-size: 24px;"> ✓ <a href="https://ecrsalud.cl" target="_blank"
+              <div style="color: #9ece6a; font-size: 24px;"> ✓ <a
+                  href="https://staging-de6a-ecrgroupconectado5.wpcomstaging.com/" target="_blank"
                   style="color: #7aa2f7; text-decoration: underline; text-underline-offset: 3px;">ecrsalud.cl</a> <span
                   style="color: #565f89;">── ECR® SALUD</span></div>
-              <div style="color: #9ece6a; font-size: 24px;"> ✓ <a href="https://ecrcapacitacion.cl" target="_blank"
+              <div style="color: #9ece6a; font-size: 24px;"> ✓ <a
+                  href="https://sharp-dress-milton-dining.trycloudflare.com/" target="_blank"
                   style="color: #7aa2f7; text-decoration: underline; text-underline-offset: 3px;">ecrcapacitacion.cl</a>
                 <span style="color: #565f89;">── ECR® CAPACITACIÓN</span>
               </div>
@@ -3269,11 +3233,43 @@
 
 
     <!-- ═══════════════════════════════════════════════════
-       SLIDE 17 — CIERRE (bg: CG_CP-2.png)
+       SLIDE 20 — Terminal Final (bg: CG-1.png)
        ═══════════════════════════════════════════════════ -->
-    <div class="slide slide--closing" data-slide="20">
+    <div class="slide slide--light" data-slide="20">
+      <div class="slide-body" style="justify-content: center; align-items: center; padding: 0;">
+        <div class="terminal"
+          style="width: 70%; max-width: 800px; box-shadow: 0 0 40px rgba(232,119,43,0.35), 0 0 80px rgba(232,119,43,0.15), 0 20px 60px rgba(0,0,0,0.4), 0 0 0 2px rgba(232,119,43,0.5); animation: terminalGlow 3s ease-in-out infinite alternate;">
+          <div class="terminal-bar" style="padding: 14px 20px;">
+            <span class="terminal-dot red" style="width: 14px; height: 14px;"></span>
+            <span class="terminal-dot yellow" style="width: 14px; height: 14px;"></span>
+            <span class="terminal-dot green" style="width: 14px; height: 14px;"></span>
+            <span class="terminal-bar-title" style="font-size: 16px;">ecr@convención: ~</span>
+          </div>
+          <div class="terminal-body" style="font-size: 26px; line-height: 2.2; padding: 40px 44px; min-height: 260px;">
+            <div><span class="prompt-user">ecr@convención</span><span class="prompt">:</span><span
+                class="prompt-path">~</span><span class="prompt">$</span> <span class="cmd">./cierre.sh</span></div>
+            <div><br></div>
+            <div style="color: #9ece6a; font-size: 28px; font-weight: 600;">Fin de la sesión.</div>
+            <div style="color: #e0af68; font-size: 28px; font-weight: 600;">Ecosistema activo.</div>
+            <div><br></div>
+            <div><span class="prompt-user">ecr@convención</span><span class="prompt">:</span><span
+                class="prompt-path">~</span><span class="prompt">$</span> <span class="cmd" style="color: #9ece6a;">Wake up, Neo...</span> <span class="cursor"
+                style="width: 12px; height: 26px;"></span></div>
+          </div>
+        </div>
+      </div>
     </div>
 
+
+    <!-- ═══════════════════════════════════════════════════
+       SLIDE 21 — CIERRE (bg: CG_CP-2.png)
+       ═══════════════════════════════════════════════════ -->
+    <div class="slide slide--closing" data-slide="21">
+    </div>
+
+
+    <!-- Confetti canvas -->
+    <canvas id="confettiCanvas"></canvas>
 
     <!-- Navigation controls -->
     <div class="nav-controls">
@@ -3494,71 +3490,76 @@
       document.addEventListener('touchend', () => { isDragging = false; });
     })();
 
-    // ── Slide pace timer (2 min per slide) ──
-    const PACE_SECONDS = 120; // 2 minutes
-    const PACE_WARN = 30; // show notification at 30s remaining
-    let paceRemaining = PACE_SECONDS;
-    let paceInterval = null;
-
-    const paceNotify = document.getElementById('paceNotify');
-    const paceTime = document.getElementById('paceTime');
-    const paceNext = document.getElementById('paceNext');
-
-    const slideTitles = [
-      'Portada',                              // 1
-      'Terminal + Timer',                     // 2
-      'El marketing ya no es solo marketing', // 3
-      'Adaptarse o ser reemplazado',          // 4
-      'NPS: De -26% a +50%',                 // 5
-      'La Paradoja del Outsourcing',          // 6
-      'Objetivos',                            // 7
-      'Cómo y dónde impactaremos',            // 8
-      'Terminal — Actividad finalizada',      // 9
-      'Sitio Web + Brandbook',                // 10
-      'Brochure Comercial 2026',              // 11
-      'Marca y Sub-marcas',                   // 12
-      'Generador de Firma Corporativa',       // 13
-      'Dashboard ECR Content',                // 14
-      'Para qué y por qué hacemos todo esto', // 15
-      'Todo se mide. Todo se optimiza.',      // 16
-      'Línea de Tiempo: Maduración',          // 17
-      'Cosecha vs Siembra',                   // 18
-      'Conclusiones Accionables',             // 19
-      'Cierre',                               // 20
-    ];
-
-    function resetPaceTimer() {
-      paceRemaining = PACE_SECONDS;
-      paceNotify.classList.remove('visible', 'urgent');
-    }
-
-    function startPaceTimer() {
-      if (paceInterval) clearInterval(paceInterval);
-      resetPaceTimer();
-      paceInterval = setInterval(() => {
-        paceRemaining--;
-        if (paceRemaining <= PACE_WARN && paceRemaining > 0) {
-          paceTime.textContent = `0:${String(paceRemaining).padStart(2, '0')}`;
-          const nextTitle = slideTitles[current + 1] || 'Fin';
-          paceNext.textContent = `Siguiente: ${nextTitle}`;
-          paceNotify.classList.add('visible');
-          if (paceRemaining <= 10) {
-            paceNotify.classList.add('urgent');
-          }
-        } else if (paceRemaining <= 0) {
-          paceTime.textContent = '0:00';
-          paceNotify.classList.add('urgent');
-        }
-      }, 1000);
-    }
-
-    // Override showSlide to reset pace timer on slide change
+    // Override showSlide for confetti
     const _origShowSlide = showSlide;
     showSlide = function (index) {
       _origShowSlide(index);
-      resetPaceTimer();
-      startPaceTimer();
+      // Confetti on slide 20 (Terminal Final) — index is 0-based
+      if (index === 19) launchConfetti();
     };
+
+    // ── Confetti engine ──
+    const confettiCanvas = document.getElementById('confettiCanvas');
+    const ctx = confettiCanvas.getContext('2d');
+    let confettiPieces = [];
+    let confettiAnimId = null;
+
+    function resizeConfettiCanvas() {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeConfettiCanvas);
+    resizeConfettiCanvas();
+
+    function launchConfetti() {
+      confettiPieces = [];
+      const colors = ['#e8772b', '#1a6b93', '#27c93f', '#ffbd2e', '#ff5f56', '#7aa2f7', '#9ece6a', '#e0af68', '#fff'];
+      for (let i = 0; i < 200; i++) {
+        confettiPieces.push({
+          x: Math.random() * confettiCanvas.width,
+          y: Math.random() * confettiCanvas.height * -1.2,
+          w: Math.random() * 10 + 5,
+          h: Math.random() * 6 + 3,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 4,
+          vy: Math.random() * 3 + 2,
+          rot: Math.random() * 360,
+          rotSpeed: (Math.random() - 0.5) * 8,
+          opacity: 1
+        });
+      }
+      if (confettiAnimId) cancelAnimationFrame(confettiAnimId);
+      animateConfetti();
+    }
+
+    function animateConfetti() {
+      ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      let alive = 0;
+      for (const p of confettiPieces) {
+        p.x += p.vx;
+        p.vy += 0.04;
+        p.y += p.vy;
+        p.rot += p.rotSpeed;
+        if (p.y > confettiCanvas.height + 20) {
+          p.opacity -= 0.02;
+        }
+        if (p.opacity <= 0) continue;
+        alive++;
+        ctx.save();
+        ctx.globalAlpha = p.opacity;
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot * Math.PI / 180);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      }
+      if (alive > 0) {
+        confettiAnimId = requestAnimationFrame(animateConfetti);
+      } else {
+        ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        confettiAnimId = null;
+      }
+    }
 
     showSlide(0);
   </script>
