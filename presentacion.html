@@ -3435,6 +3435,15 @@
       }
     });
 
+    // ── Listen for presenter control commands ──
+    const presenterControlChannel = new BroadcastChannel('ecr-presenter-control');
+    presenterControlChannel.onmessage = (e) => {
+      if (e.data.type === 'nav') {
+        if (e.data.action === 'next') nextSlide();
+        else if (e.data.action === 'prev') prevSlide();
+      }
+    };
+
     // Touch support
     let touchStartX = 0;
     document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });

@@ -351,6 +351,48 @@
       font-family: 'JetBrains Mono', monospace;
       color: #30363d;
     }
+
+    /* ── Navigation buttons ── */
+    .nav-buttons {
+      position: fixed;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 16px;
+      z-index: 200;
+    }
+
+    .nav-btn {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid #30363d;
+      background: #161b22;
+      color: #c9d1d9;
+      font-size: 32px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      user-select: none;
+    }
+
+    .nav-btn:hover {
+      background: #21262d;
+      border-color: var(--ecr-orange);
+      color: #fff;
+    }
+
+    .nav-btn:active {
+      transform: scale(0.92);
+      background: var(--ecr-orange);
+      border-color: var(--ecr-orange);
+      color: #fff;
+    }
   </style>
 </head>
 
@@ -408,6 +450,12 @@
     <h3>Siguiente slide</h3>
     <div class="next-slide-title" id="nextTitle"></div>
     <div class="next-notes-preview" id="nextNotes"></div>
+  </div>
+
+  <!-- Navigation buttons -->
+  <div class="nav-buttons" id="navButtons" style="display: none;">
+    <button class="nav-btn" id="btnPrev" title="Anterior">&#8592;</button>
+    <button class="nav-btn" id="btnNext" title="Siguiente">&#8594;</button>
   </div>
 
   <!-- Footer -->
@@ -532,7 +580,7 @@
         notes: `<p class="say">"Para esto. Para que cada peso invertido se pueda rastrear. Desde Google Ads hasta el CRM, pasando por el sitio web y los analytics. Todo conectado.</p>
                 <p class="action">[Señalar el flujo: Google Ads → Sitio Web → CRM → Analytics → Optimización]</p>
                 <p class="action">[Señalar el terminal con las métricas de tracking]</p>
-                <p class="say">Nuestro sistema de tracking tiene cobertura del 73% en GCLID — 141 de 193 deals. El 70% tiene Ad Campaign Name identificado. El 27% sin tracking está en investigación.</p>
+                <p class="say">Nuestro sistema de tracking tiene cobertura del 73% en GCLID (Google Click ID) — 141 de 193 deals. El 70% tiene Ad Campaign Name identificado. El 27% sin tracking está en investigación.</p>
                 <p class="say"><span class="bold">No es un deseo. No es un plan. Son datos reales, en tiempo real. Esto ya está ocurriendo.</span>"</p>`
       },
       17: {
@@ -575,7 +623,8 @@
         title: 'Terminal — Fin de la sesión',
         notes: `<p class="say">Todo lo que les he mostrado hoy — el CRM, las campañas, los dashboards, el NPS, los sitios web, el brandbook — <span class="bold">no son deseos. Son medios.</span> Medios funcionando hoy, para impulsar la gestión comercial y la tracción comercial.</p>
                 <p class="say">Marketing no es un gasto. Es la inversión que genera negocios. Y ahora tenemos los datos para demostrarlo.</p>
-                <p class="say">Todo, absolutamente todo, lo que vieron aquí hoy se está usando.</p>
+                <p class="say">Todo, absolutamente todo, lo que vieron aquí hoy ya se está usando.</p>
+                <p class="say">Así es el marketing de hoy. No es magia, es trabajo. Y lo estamos haciendo.</p>
                 <p class="say">Gracias."</p>`
       },
       21: {
@@ -632,6 +681,7 @@
         waitingState.style.display = 'none';
         notesPanel.style.display = '';
         nextPanel.style.display = '';
+        navButtons.style.display = '';
       }
 
       if (!presentationStartTime) {
@@ -697,6 +747,20 @@
         slidePaceEl.textContent = `${formatTime(rec)} recomendado`;
       }
     }
+
+    // ── Control channel (presenter → presentation) ──
+    const controlChannel = new BroadcastChannel('ecr-presenter-control');
+    const navButtons = document.getElementById('navButtons');
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+
+    btnPrev.addEventListener('click', () => {
+      controlChannel.postMessage({ type: 'nav', action: 'prev' });
+    });
+
+    btnNext.addEventListener('click', () => {
+      controlChannel.postMessage({ type: 'nav', action: 'next' });
+    });
 
     // ── BroadcastChannel listener ──
     const channel = new BroadcastChannel('ecr-presenter');
